@@ -23,6 +23,18 @@ import CompleteProfile from './pages/CompleteProfile';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
+// Protected Admin Route Component
+const ProtectedAdminRoute = ({ children }) => {
+  const adminToken = localStorage.getItem('adminToken');
+  const admin = localStorage.getItem('admin');
+  
+  if (!adminToken || !admin) {
+    return <AdminLogin />;
+  }
+  
+  return children;
+};
+
 function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
@@ -58,9 +70,13 @@ function AppContent() {
             </ProtectedRoute>
           } />
 
-          {/* Admin Routes */}
+          {/* Admin Routes - Protected */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/admin/*" element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          } />
         </Routes>
       </main>
       {!isAdminRoute && <Footer />}

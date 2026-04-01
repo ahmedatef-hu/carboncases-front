@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -35,18 +35,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: #000;
 }
 
 /* Smooth animations */
 .fade-in {
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 0.8s ease-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -55,14 +55,736 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .slide-in {
-  animation: slideIn 0.3s ease-out;
+  animation: slideIn 0.6s ease-out;
 }
 
 @keyframes slideIn {
   from {
-    transform: translateX(100%);
+    opacity: 0;
+    transform: translateX(-20px);
   }
   to {
+    opacity: 1;
     transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.2s ease-out;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glow effect */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Button hover effects */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* Card hover effects */
+.product-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+.product-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Minimalist design styles */
+.minimal-card {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e5e5;
+}
+
+.minimal-card:hover {
+  border-color: #000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+/* Orange accent styles */
+.orange-accent {
+  color: #ff6b35;
+}
+
+.bg-orange-accent {
+  background-color: #ff6b35;
+}
+
+.border-orange-accent {
+  border-color: #ff6b35;
+}
+
+/* 3D Product showcase */
+.product-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.product-floating {
+  animation: float-3d 6s ease-in-out infinite;
+}
+
+@keyframes float-3d {
+  0%, 100% {
+    transform: translateY(0px) rotateY(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotateY(5deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateY(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotateY(-5deg);
+  }
+}
+
+/* Minimalist button styles */
+.btn-minimal {
+  border: none;
+  background: #000;
+  color: #fff;
+  padding: 16px 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn-minimal:hover {
+  background: #ff6b35;
+  transform: translateY(-2px);
+}
+
+.btn-minimal-outline {
+  border: 2px solid #000;
+  background: transparent;
+  color: #000;
+  padding: 14px 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn-minimal-outline:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* Typography improvements */
+.hero-title {
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -2px;
+}
+
+.section-title {
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* Grid improvements */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Marquee animation for top banner */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Categories carousel styles */
+.category-card {
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.category-card:hover::before {
+  opacity: 1;
+}
+
+.category-icon {
+  transition: all 0.3s ease;
+  filter: brightness(0.9);
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+/* Text overlay improvements */
+.category-card h3 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: 800;
+}
+
+.category-card p {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Horizontal scroll carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scrolling for touch devices */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation arrows hover effects */
+.carousel-nav-btn {
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.carousel-nav-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Featured section tabs */
+.featured-tab {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.featured-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+.featured-tab.active::after {
+  width: 100%;
+}
+
+.featured-tab:hover::after {
+  width: 100%;
+}
+
+/* Product card improvements for featured section */
+.featured-product-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.featured-product-card:hover {
+  border-color: #e0e0e0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Clean product card styling */
+.product-card-minimal {
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.product-card-minimal:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Product image hover effects */
+.product-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(0, 0, 0, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-image-container:hover::after {
+  opacity: 1;
+}
+
+/* Price styling */
+.price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.current-price {
+  font-weight: 700;
+  color: #000;
+  font-size: 1.1rem;
+}
+
+.original-price {
+  font-size: 0.85rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+/* Button improvements */
+.add-to-cart-btn {
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.add-to-cart-btn:hover {
+  background: #333;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.wishlist-btn {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wishlist-btn:hover {
+  background: #000;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Phone series accordion - Cards side by side with expand/collapse effect */
+.phone-series-accordion {
+  transition: all 0.5s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Desktop behavior (lg and up) */
+@media (min-width: 1024px) {
+  .phone-series-accordion:hover {
+    flex-grow: 1 !important;
+    width: 24rem !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Default state - collapsed cards */
+  .phone-series-accordion:not(:hover) {
+    width: 6rem !important;
+    flex-grow: 0 !important;
+  }
+
+  /* Second card (Impact Series 2.0) is expanded by default */
+  .phone-series-accordion:nth-child(2) {
+    width: 24rem !important;
+    flex-grow: 1 !important;
+  }
+
+  .phone-series-accordion:nth-child(2):not(:hover) {
+    width: 24rem !important;
+    flex-grow: 1 !important;
+  }
+
+  /* When any other card is hovered, collapse the default expanded one */
+  .phone-series-accordion:not(:nth-child(2)):hover ~ .phone-series-accordion:nth-child(2),
+  .phone-series-accordion:nth-child(1):hover ~ .phone-series-accordion:nth-child(2) {
+    width: 6rem !important;
+    flex-grow: 0 !important;
+  }
+}
+
+/* Mobile and tablet behavior - Enhanced cards with better spacing */
+@media (max-width: 1023px) {
+  .phone-series-accordion {
+    width: 100% !important;
+    height: 20rem !important; /* Increased height for better content display */
+    flex-grow: 0 !important;
+    margin-bottom: 1rem; /* Add spacing between cards */
+  }
+  
+  .phone-series-accordion:hover {
+    width: 100% !important;
+    flex-grow: 0 !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  /* Enhanced mobile styling */
+  .phone-series-accordion:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Background image scaling */
+.phone-series-accordion img {
+  transition: all 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Content animations */
+.phone-series-accordion .z-20 {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Collapsed title styling */
+.phone-series-accordion .z-25 {
+  z-index: 25;
+}
+
+/* Layer system with proper stacking */
+.phone-series-accordion .z-0 {
+  z-index: 0;
+}
+
+.phone-series-accordion .z-10 {
+  z-index: 10;
+}
+
+.phone-series-accordion .z-20 {
+  z-index: 20;
+}
+
+.phone-series-accordion .z-25 {
+  z-index: 25;
+}
+
+.phone-series-accordion .z-30 {
+  z-index: 30;
+}
+
+/* Text shadows for better readability */
+.phone-series-accordion h3 {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.phone-series-accordion p {
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  line-height: 1.6;
+}
+
+/* Rating stars with glow effect */
+.phone-series-accordion .text-yellow-400 {
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.6));
+}
+
+/* Enhanced CTA button */
+.phone-series-accordion .bg-white {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.phone-series-accordion .bg-white:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Mobile-specific enhancements */
+@media (max-width: 768px) {
+  .phone-series-accordion h3 {
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
+  
+  .phone-series-accordion p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  .phone-series-accordion .text-yellow-400 {
+    font-size: 1rem;
+  }
+}
+
+/* Phone types section */
+.phone-type-card {
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-type-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.phone-type-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.phone-type-card:hover::before {
+  opacity: 1;
+}
+
+/* Infinite scroll carousel */
+.infinite-scroll {
+  animation: infiniteScroll 30s linear infinite;
+}
+
+@keyframes infiniteScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.infinite-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Phone type card text styling */
+.phone-type-card h3 {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  font-weight: 800;
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+    letter-spacing: -1px;
+  }
+  
+  .product-3d {
+    perspective: 500px;
+  }
+  
+  .animate-marquee {
+    animation: marquee 15s linear infinite;
+  }
+}
+/* Custom Select Dropdown Styling */
+select {
+  background-image: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/* Custom dropdown styling for better cross-browser compatibility */
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: white;
+  background-image: none;
+  border: 2px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
+.custom-select select:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.custom-select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #9ca3af;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Option styling */
+select option {
+  padding: 0.5rem;
+  background: white;
+  color: #374151;
+}
+
+select option:hover {
+  background: #f3f4f6;
+}
+
+select option:checked {
+  background: #f97316;
+  color: white;
+}
+
+/* Mobile select improvements */
+@media (max-width: 768px) {
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .custom-select select {
+    padding: 0.875rem 2.5rem 0.875rem 1rem;
   }
 }

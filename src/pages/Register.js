@@ -187,7 +187,13 @@ const Register = () => {
 
               <button
                 type="button"
-                onClick={() => window.location.href = 'https://carboncases-back.vercel.app/api/auth/google'}
+                onClick={() => {
+                  // Use localhost for development, Vercel for production
+                  const backendUrl = process.env.NODE_ENV === 'production' 
+                    ? 'https://carboncases-back.vercel.app' 
+                    : 'http://localhost:5000';
+                  window.location.href = `${backendUrl}/api/auth/google`;
+                }}
                 className="w-full bg-white text-gray-900 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold flex items-center justify-center gap-3"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
