@@ -9,9 +9,6 @@ const Navbar = () => {
   const { getCartCount } = useCart();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  // Check if user is admin
-  const isAdmin = !!localStorage.getItem('adminToken');
 
   const handleLogout = () => {
     logout();

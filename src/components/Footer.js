@@ -15,15 +15,15 @@ const Footer = () => {
               Lightweight, durable, and elegantly designed.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-accent transition-colors">
+              <button className="text-gray-400 hover:text-accent transition-colors" aria-label="Instagram">
                 <FiInstagram size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-accent transition-colors">
+              </button>
+              <button className="text-gray-400 hover:text-accent transition-colors" aria-label="Twitter">
                 <FiTwitter size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-accent transition-colors">
+              </button>
+              <button className="text-gray-400 hover:text-accent transition-colors" aria-label="Facebook">
                 <FiFacebook size={20} />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -42,10 +42,10 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-accent transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-accent transition-colors">Shipping Info</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-accent transition-colors">Returns</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-accent transition-colors">FAQ</a></li>
+              <li><button className="text-gray-400 hover:text-accent transition-colors">Contact Us</button></li>
+              <li><button className="text-gray-400 hover:text-accent transition-colors">Shipping Info</button></li>
+              <li><button className="text-gray-400 hover:text-accent transition-colors">Returns</button></li>
+              <li><button className="text-gray-400 hover:text-accent transition-colors">FAQ</button></li>
             </ul>
           </div>
         </div>
