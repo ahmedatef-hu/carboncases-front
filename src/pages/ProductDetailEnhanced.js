@@ -24,28 +24,28 @@ const ProductDetailEnhanced = () => {
   const [selectedVariant, setSelectedVariant] = useState(null); // For MagSafe
 
   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await api.get(`/products/${id}`);
+        setProduct(response.data);
+        
+        // Set default selections
+        if (response.data.colors && response.data.colors.length > 0) {
+          setSelectedColor(response.data.colors[0].color_name);
+        }
+        if (response.data.models && response.data.models.length > 0) {
+          setSelectedModel(response.data.models[0].model_name);
+        }
+        
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        setLoading(false);
+      }
+    };
+
     fetchProduct();
   }, [id]);
-
-  const fetchProduct = async () => {
-    try {
-      const response = await api.get(`/products/${id}`);
-      setProduct(response.data);
-      
-      // Set default selections
-      if (response.data.colors && response.data.colors.length > 0) {
-        setSelectedColor(response.data.colors[0].color_name);
-      }
-      if (response.data.models && response.data.models.length > 0) {
-        setSelectedModel(response.data.models[0].model_name);
-      }
-      
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching product:', error);
-      setLoading(false);
-    }
-  };
 
   const handleAddToCart = () => {
     // Validation

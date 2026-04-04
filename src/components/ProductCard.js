@@ -11,7 +11,6 @@ const ProductCard = ({ product, onAddToWishlist }) => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [addedToWishlist, setAddedToWishlist] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Get product images (use image_count from backend or default to 1)
   const imageCount = product.image_count || 0;
