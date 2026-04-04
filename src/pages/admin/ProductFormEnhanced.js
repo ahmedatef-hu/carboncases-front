@@ -30,6 +30,14 @@ const ProductFormEnhanced = ({ onSuccess, onCancel, existingProduct = null }) =>
 
   // Predefined iPhone models
   const iPhoneModels = [
+    'iPhone 17 Pro Max',
+    'iPhone 17 Pro',
+    'iPhone 17 Air',
+    'iPhone 17',
+    'iPhone 16 Pro Max',
+    'iPhone 16 Pro',
+    'iPhone 16 Plus',
+    'iPhone 16',
     'iPhone 15 Pro Max',
     'iPhone 15 Pro',
     'iPhone 15 Plus',
