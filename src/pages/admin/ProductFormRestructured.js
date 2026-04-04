@@ -20,7 +20,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [colors, setColors] = useState([]);
   const [models, setModels] = useState([]);
-  const [newColor, setNewColor] = useState('');
+  const [newColor, setNewColor] = useState({ name: '', hex: '#000000' });
   const [newModel, setNewModel] = useState('');
 
   const categories = ['Phone Covers', 'Wallets', 'AirPods Covers', 'Car Accessories'];
@@ -91,13 +91,16 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
   };
 
   const addColor = () => {
-    if (!newColor.trim()) return;
-    if (colors.includes(newColor.trim())) {
+    if (!newColor.name.trim()) {
+      alert('Please enter color name');
+      return;
+    }
+    if (colors.some(c => c.name === newColor.name.trim())) {
       alert('Color already exists');
       return;
     }
-    setColors([...colors, newColor.trim()]);
-    setNewColor('');
+    setColors([...colors, { name: newColor.name.trim(), hex: newColor.hex }]);
+    setNewColor({ name: '', hex: '#000000' });
   };
 
   const removeColor = (index) => {
@@ -417,22 +420,41 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
             <span>Available Colors</span>
           </label>
           
-          <div className="flex gap-2 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <input
               type="text"
-              value={newColor}
-              onChange={(e) => setNewColor(e.target.value)}
-              placeholder="Enter color name"
-              className="flex-1 bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
+              value={newColor.name}
+              onChange={(e) => setNewColor({ ...newColor, name: e.target.value })}
+              placeholder="Color name (e.g., Black)"
+              className="md:col-span-2 bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addColor())}
             />
-            <button
-              type="button"
-              onClick={addColor}
-              className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold flex items-center gap-2"
-            >
-              <FiPlus /> Add
-            </button>
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <input
+                  type="color"
+                  value={newColor.hex}
+                  onChange={(e) => setNewColor({ ...newColor, hex: e.target.value })}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div 
+                  className="w-full h-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:border-orange-500/50 transition-all"
+                >
+                  <span className="text-white text-sm">{newColor.hex}</span>
+                  <div 
+                    className="w-8 h-8 rounded-lg border-2 border-white/20"
+                    style={{ backgroundColor: newColor.hex }}
+                  ></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={addColor}
+                className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold flex items-center gap-2 whitespace-nowrap"
+              >
+                <FiPlus /> Add
+              </button>
+            </div>
           </div>
 
           {colors.length > 0 && (
@@ -440,13 +462,17 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
               {colors.map((color, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md border border-orange-500/30 text-white px-3 py-1 rounded-full"
+                  className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md border border-orange-500/30 text-white px-3 py-2 rounded-full"
                 >
-                  {color}
+                  <div 
+                    className="w-5 h-5 rounded-full border-2 border-white/30"
+                    style={{ backgroundColor: color.hex }}
+                  ></div>
+                  <span>{color.name}</span>
                   <button
                     type="button"
                     onClick={() => removeColor(index)}
-                    className="text-red-400 hover:text-red-300"
+                    className="text-red-400 hover:text-red-300 ml-1"
                   >
                     <FiX size={14} />
                   </button>
