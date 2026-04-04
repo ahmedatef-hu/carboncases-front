@@ -66,7 +66,7 @@ const ProductsManagement = () => {
       
       let finalImageUrl = formData.image_url;
       
-      // If we have a file to upload, upload it to our backend
+      // If we have a file to upload, upload it to Supabase via backend
       if (imagePreview && imagePreview.startsWith('data:')) {
         try {
           // Convert base64 to blob
@@ -77,7 +77,8 @@ const ProductsManagement = () => {
           const uploadFormData = new FormData();
           uploadFormData.append('image', blob, 'product-image.jpg');
           
-          // Upload to backend
+          // Upload to backend (which uploads to Supabase)
+          console.log('📤 Uploading image to Supabase Storage...');
           const uploadResponse = await api.post('/admin/upload-image', uploadFormData, {
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -85,14 +86,14 @@ const ProductsManagement = () => {
           });
           
           if (uploadResponse.data && uploadResponse.data.url) {
-            // Use the full URL with backend server
-            finalImageUrl = `http://localhost:5000${uploadResponse.data.url}`;
-            console.log('Image uploaded successfully:', finalImageUrl);
+            // Use the Supabase public URL directly
+            finalImageUrl = uploadResponse.data.url;
+            console.log('✅ Image uploaded successfully:', finalImageUrl);
           } else {
             throw new Error('Upload failed');
           }
         } catch (uploadError) {
-          console.error('Image upload error:', uploadError);
+          console.error('❌ Image upload error:', uploadError);
           alert('Failed to upload image: ' + (uploadError.response?.data?.message || uploadError.message));
           setUploading(false);
           return;

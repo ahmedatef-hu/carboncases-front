@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiShoppingCart, FiHeart } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import ProductImage from './ProductImage';
 import api from '../utils/api';
 
 const ProductCard = ({ product, onAddToWishlist }) => {
@@ -45,9 +46,11 @@ const ProductCard = ({ product, onAddToWishlist }) => {
       <Link to={`/products/${product.id}`}>
         {/* Product Image */}
         <div className="relative overflow-hidden aspect-square bg-gradient-to-br from-gray-900 to-black rounded-t-2xl">
-          <img
+          <ProductImage
             src={product.image_url}
             alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
           />
           
