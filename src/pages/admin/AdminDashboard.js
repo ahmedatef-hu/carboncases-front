@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { FiHome, FiPackage, FiShoppingBag, FiUsers, FiLogOut, FiShield } from 'react-icons/fi';
 import api from '../../utils/api';
 
@@ -10,7 +10,6 @@ import OrdersManagement from './OrdersManagement';
 import UsersManagement from './UsersManagement';
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -20,29 +19,37 @@ const AdminDashboard = () => {
       const adminToken = localStorage.getItem('adminToken');
       const savedAdmin = localStorage.getItem('admin');
       
+      console.log('🔍 Checking admin auth...', { 
+        hasToken: !!adminToken, 
+        hasAdmin: !!savedAdmin 
+      });
+      
       if (!adminToken || !savedAdmin) {
-        navigate('/admin/login');
+        console.log('❌ No admin credentials, redirecting to login...');
+        window.location.href = '/admin/login';
         return;
       }
 
       try {
         // Verify token with backend
         api.defaults.headers.common['Authorization'] = `Bearer ${adminToken}`;
+        console.log('🔄 Verifying admin token with backend...');
         await api.get('/admin/stats'); // Test admin endpoint
+        console.log('✅ Admin token verified successfully');
         setAdmin(JSON.parse(savedAdmin));
       } catch (error) {
-        console.error('Admin authentication failed:', error);
+        console.error('❌ Admin authentication failed:', error);
         localStorage.removeItem('adminToken');
         localStorage.removeItem('admin');
         delete api.defaults.headers.common['Authorization'];
-        navigate('/admin/login');
+        window.location.href = '/admin/login';
       } finally {
         setLoading(false);
       }
     };
 
     checkAdminAuth();
-  }, [navigate]);
+  }, []);
 
   // Block access if user tries to access admin routes without proper authentication
   useEffect(() => {
@@ -59,10 +66,12 @@ const AdminDashboard = () => {
   }, []);
 
   const handleLogout = () => {
+    console.log('🚪 Admin logout initiated');
     localStorage.removeItem('adminToken');
     localStorage.removeItem('admin');
     delete api.defaults.headers.common['Authorization'];
-    navigate('/admin/login');
+    console.log('✅ Admin credentials cleared, redirecting to login...');
+    window.location.href = '/admin/login';
   };
 
   const menuItems = [
@@ -91,7 +100,7 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold text-white">Access Denied</h2>
           <p className="text-gray-400">You don't have permission to access this area.</p>
           <button 
-            onClick={() => navigate('/admin/login')}
+            onClick={() => window.location.href = '/admin/login'}
             className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
           >
             Go to Admin Login
