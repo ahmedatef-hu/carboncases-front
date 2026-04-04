@@ -430,27 +430,29 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addColor())}
             />
             <div className="flex gap-2">
-              <div className="relative flex-1">
+              <label className="relative flex-1 cursor-pointer">
                 <input
                   type="color"
                   value={newColor.hex}
                   onChange={(e) => setNewColor({ ...newColor, hex: e.target.value })}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  style={{ width: '100%', height: '100%' }}
                 />
                 <div 
-                  className="w-full h-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:border-orange-500/50 transition-all"
+                  className="w-full h-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 flex items-center justify-between hover:border-orange-500/50 transition-all"
                 >
-                  <span className="text-white text-sm">{newColor.hex}</span>
+                  <span className="text-white text-sm font-mono">{newColor.hex}</span>
                   <div 
-                    className="w-8 h-8 rounded-lg border-2 border-white/20"
+                    className="w-10 h-10 rounded-lg border-2 border-white/30 shadow-lg"
                     style={{ backgroundColor: newColor.hex }}
                   ></div>
                 </div>
-              </div>
+              </label>
               <button
                 type="button"
                 onClick={addColor}
-                className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold flex items-center gap-2 whitespace-nowrap"
+                className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold flex items-center gap-2 whitespace-nowrap shadow-lg"
+                style={{boxShadow: '0 10px 30px rgba(255, 107, 53, 0.3)'}}
               >
                 <FiPlus /> Add
               </button>
@@ -458,23 +460,25 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
           </div>
 
           {colors.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {colors.map((color, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md border border-orange-500/30 text-white px-3 py-2 rounded-full"
+                  className="inline-flex items-center gap-3 bg-black/50 backdrop-blur-md border-2 border-orange-500/30 text-white px-4 py-2 rounded-xl hover:border-orange-500/50 transition-all"
                 >
                   <div 
-                    className="w-5 h-5 rounded-full border-2 border-white/30"
+                    className="w-6 h-6 rounded-lg border-2 border-white/40 shadow-md"
                     style={{ backgroundColor: color.hex }}
+                    title={color.hex}
                   ></div>
-                  <span>{color.name}</span>
+                  <span className="font-medium">{color.name}</span>
+                  <span className="text-xs text-white/50 font-mono">{color.hex}</span>
                   <button
                     type="button"
                     onClick={() => removeColor(index)}
-                    className="text-red-400 hover:text-red-300 ml-1"
+                    className="text-red-400 hover:text-red-300 ml-2 hover:scale-110 transition-transform"
                   >
-                    <FiX size={14} />
+                    <FiX size={16} />
                   </button>
                 </span>
               ))}
