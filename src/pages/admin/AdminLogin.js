@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FiLock, FiShield, FiMail, FiEye, FiEyeOff } from 'react-icons/fi';
 import api from '../../utils/api';
 
@@ -8,7 +7,6 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
 
   // Check if admin is already logged in
   useEffect(() => {
@@ -25,6 +23,15 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    debugger; // This will pause execution
+    console.log('🚀 Form submitted!');
+    console.log('📝 Form data:', formData);
+    
+    if (!formData.email || !formData.password) {
+      setError('Please enter email and password');
+      return;
+    }
+    
     setLoading(true);
     setError('');
 

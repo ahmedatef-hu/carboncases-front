@@ -29,15 +29,20 @@ const ProtectedAdminRoute = ({ children }) => {
   const adminToken = localStorage.getItem('adminToken');
   const admin = localStorage.getItem('admin');
   
+  console.log('🔒 ProtectedAdminRoute check:', { 
+    hasToken: !!adminToken, 
+    hasAdmin: !!admin, 
+    path: location.pathname 
+  });
+  
   // If not on admin login page and no admin credentials, redirect to admin login
   if (!adminToken || !admin) {
-    if (location.pathname !== '/admin/login') {
-      window.location.href = '/admin/login';
-      return null;
-    }
-    return <AdminLogin />;
+    console.log('❌ No admin credentials, redirecting to login...');
+    window.location.href = '/admin/login';
+    return null;
   }
   
+  console.log('✅ Admin authenticated, rendering protected route');
   return children;
 };
 
