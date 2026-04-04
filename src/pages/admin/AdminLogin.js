@@ -14,9 +14,9 @@ const AdminLogin = () => {
   useEffect(() => {
     const adminToken = localStorage.getItem('adminToken');
     if (adminToken) {
-      navigate('/admin/dashboard');
+      window.location.href = '/admin/dashboard';
     }
-  }, [navigate]);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,11 +42,16 @@ const AdminLogin = () => {
       localStorage.setItem('admin', JSON.stringify(response.data.admin));
       
       console.log('✅ Admin token saved, redirecting to dashboard...');
+      console.log('📍 Current location:', window.location.href);
       
-      // Use window.location.href for full page reload (important for Vercel)
-      window.location.href = '/admin/dashboard';
+      // Force full page reload to dashboard
+      setTimeout(() => {
+        window.location.replace('/admin/dashboard');
+      }, 100);
+      
     } catch (error) {
       console.error('❌ Admin login error:', error);
+      console.error('❌ Error details:', error.response?.data);
       setError(error.response?.data?.message || 'Admin login failed. Please check your credentials.');
     } finally {
       setLoading(false);
