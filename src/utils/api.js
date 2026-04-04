@@ -33,9 +33,18 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Check if it's an admin route
+      if (error.config?.url?.includes('/admin')) {
+        console.log('❌ Admin 401 error - clearing admin credentials');
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('admin');
+        // Don't redirect here - let the component handle it
+      } else {
+        console.log('❌ User 401 error - clearing user credentials');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
