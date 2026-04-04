@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FiPlus, FiEdit2, FiTrash2, FiSave, FiX, FiPackage, FiSearch } from 'react-icons/fi';
 import api from '../../utils/api';
+import ProductFormEnhanced from './ProductFormEnhanced';
 
 const ProductsManagement = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showEnhancedForm, setShowEnhancedForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -255,17 +257,34 @@ const ProductsManagement = () => {
             <p className="text-white/70 mt-1">Manage your product inventory and details</p>
           </div>
         </div>
-        <button
-          onClick={() => setShowAddForm(!showAddForm)}
-          className="flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 transform hover:scale-105 font-semibold shadow-lg relative overflow-hidden group"
-          style={{
-            boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)'
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-          <FiPlus size={20} className="relative z-10" />
-          <span className="relative z-10">Add Product</span>
-        </button>
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => {
+              setShowAddForm(!showAddForm);
+              setShowEnhancedForm(false);
+            }}
+            className="flex items-center space-x-2 bg-gradient-to-r from-gray-700 to-gray-600 text-white px-6 py-3 rounded-xl hover:from-gray-600 hover:to-gray-500 transition-all duration-500 transform hover:scale-105 font-semibold shadow-lg relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            <FiPlus size={20} className="relative z-10" />
+            <span className="relative z-10">Basic Product</span>
+          </button>
+          
+          <button
+            onClick={() => {
+              setShowEnhancedForm(!showEnhancedForm);
+              setShowAddForm(false);
+            }}
+            className="flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 transform hover:scale-105 font-semibold shadow-lg relative overflow-hidden group"
+            style={{
+              boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)'
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            <FiPlus size={20} className="relative z-10" />
+            <span className="relative z-10">Enhanced Product</span>
+          </button>
+        </div>
       </div>
 
       {/* Search Bar */}
@@ -289,6 +308,17 @@ const ProductsManagement = () => {
           />
         </div>
       </div>
+
+      {/* Enhanced Product Form */}
+      {showEnhancedForm && (
+        <ProductFormEnhanced
+          onSuccess={() => {
+            setShowEnhancedForm(false);
+            fetchProducts();
+          }}
+          onCancel={() => setShowEnhancedForm(false)}
+        />
+      )}
 
       {/* Add Product Form */}
       {showAddForm && (
