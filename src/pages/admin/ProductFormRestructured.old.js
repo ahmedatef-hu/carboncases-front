@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiX, FiUpload, FiPackage, FiEdit2 } from 'react-icons/fi';
+import { FiPlus, FiX, FiUpload, FiCheck } from 'react-icons/fi';
 import api from '../../utils/api';
 
-const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
+/**
+ * RESTRUCTURED Product Form Component
+ * Matches new requirements exactly
+ */
+const ProductFormRestructured = ({ onSuccess, onCancel, existingProduct = null }) => {
   const [loading, setLoading] = useState(false);
   const [uploadingImages, setUploadingImages] = useState(false);
   
@@ -12,7 +16,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
     category: 'Phone Covers',
     price_without_magsafe: '',
     price_with_magsafe: '',
-    price: '',
+    price: '', // For non-phone-cover products
     stock_quantity: '',
   });
 
@@ -20,21 +24,48 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [colors, setColors] = useState([]);
   const [models, setModels] = useState([]);
+  
   const [newColor, setNewColor] = useState('');
   const [newModel, setNewModel] = useState('');
 
-  const categories = ['Phone Covers', 'Wallets', 'AirPods Covers', 'Car Accessories'];
-
-  const iPhoneModels = [
-    'iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max',
-    'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Pro Max',
-    'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max',
-    'iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max',
-    'iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max',
-    'iPhone 16', 'iPhone 16 Plus', 'iPhone 16 Pro', 'iPhone 16 Pro Max',
-    'iPhone 17', 'iPhone 17 Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max',
+  // Categories
+  const categories = [
+    'Phone Covers',
+    'Wallets',
+    'AirPods Covers',
+    'Car Accessories'
   ];
 
+  // Predefined iPhone models (for Phone Covers only)
+  const iPhoneModels = [
+    'iPhone 11',
+    'iPhone 11 Pro',
+    'iPhone 11 Pro Max',
+    'iPhone 12',
+    'iPhone 12 Pro',
+    'iPhone 12 Pro Max',
+    'iPhone 13',
+    'iPhone 13 Pro',
+    'iPhone 13 Pro Max',
+    'iPhone 14',
+    'iPhone 14 Plus',
+    'iPhone 14 Pro',
+    'iPhone 14 Pro Max',
+    'iPhone 15',
+    'iPhone 15 Plus',
+    'iPhone 15 Pro',
+    'iPhone 15 Pro Max',
+    'iPhone 16',
+    'iPhone 16 Plus',
+    'iPhone 16 Pro',
+    'iPhone 16 Pro Max',
+    'iPhone 17',
+    'iPhone 17 Air',
+    'iPhone 17 Pro',
+    'iPhone 17 Pro Max',
+  ];
+
+  // Load existing product data
   useEffect(() => {
     if (existingProduct) {
       setFormData({
@@ -53,24 +84,33 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
   }, [existingProduct]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // ============================================
+  // IMAGE HANDLING
+  // ============================================
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
 
     setUploadingImages(true);
+
     try {
       const formDataUpload = new FormData();
-      files.forEach(file => formDataUpload.append('images', file));
+      files.forEach(file => {
+        formDataUpload.append('images', file);
+      });
 
       const response = await api.post('/admin/upload-images', formDataUpload, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
       setImages([...images, ...response.data.urls]);
+      console.log('✅ Images uploaded:', response.data.urls);
     } catch (error) {
+      console.error('❌ Error uploading images:', error);
       alert('Failed to upload images: ' + (error.response?.data?.message || error.message));
     } finally {
       setUploadingImages(false);
@@ -78,8 +118,9 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
   };
 
   const addImageUrl = () => {
-    if (!imageUrl.trim() || !imageUrl.startsWith('http')) {
-      alert('Please enter a valid URL');
+    if (!imageUrl.trim()) return;
+    if (!imageUrl.startsWith('http')) {
+      alert('Please enter a valid URL starting with http:// or https://');
       return;
     }
     setImages([...images, imageUrl.trim()]);
@@ -90,8 +131,14 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
     setImages(images.filter((_, i) => i !== index));
   };
 
+  // ============================================
+  // COLOR HANDLING
+  // ============================================
   const addColor = () => {
-    if (!newColor.trim()) return;
+    if (!newColor.trim()) {
+      alert('Please enter color name');
+      return;
+    }
     if (colors.includes(newColor.trim())) {
       alert('Color already exists');
       return;
@@ -104,6 +151,9 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
     setColors(colors.filter((_, i) => i !== index));
   };
 
+  // ============================================
+  // MODEL HANDLING
+  // ============================================
   const toggleModel = (modelName) => {
     if (models.includes(modelName)) {
       setModels(models.filter(m => m !== modelName));
@@ -112,11 +162,19 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
     }
   };
 
-  const selectAllModels = () => setModels([...iPhoneModels]);
-  const deselectAllModels = () => setModels([]);
+  const selectAllModels = () => {
+    setModels([...iPhoneModels]);
+  };
+
+  const deselectAllModels = () => {
+    setModels([]);
+  };
 
   const addCustomModel = () => {
-    if (!newModel.trim()) return;
+    if (!newModel.trim()) {
+      alert('Please enter model name');
+      return;
+    }
     if (models.includes(newModel.trim())) {
       alert('Model already exists');
       return;
@@ -129,9 +187,13 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
     setModels(models.filter((_, i) => i !== index));
   };
 
+  // ============================================
+  // FORM SUBMISSION
+  // ============================================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation
     if (!formData.name.trim()) {
       alert('Please enter product name');
       return;
@@ -144,7 +206,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
 
     if (formData.category === 'Phone Covers') {
       if (!formData.price_without_magsafe || !formData.price_with_magsafe) {
-        alert('Please enter both MagSafe prices');
+        alert('Please enter both MagSafe prices for Phone Covers');
         return;
       }
     } else {
@@ -172,6 +234,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
         models,
       };
 
+      // Add pricing based on category
       if (formData.category === 'Phone Covers') {
         productData.price_without_magsafe = parseFloat(formData.price_without_magsafe);
         productData.price_with_magsafe = parseFloat(formData.price_with_magsafe);
@@ -189,6 +252,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
 
       if (onSuccess) onSuccess();
     } catch (error) {
+      console.error('❌ Error saving product:', error);
       alert('Failed to save product: ' + (error.response?.data?.message || error.message));
     } finally {
       setLoading(false);
@@ -202,6 +266,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
     <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-xl p-6 lg:p-8 border border-orange-500/20 shadow-lg relative overflow-hidden" style={{
       boxShadow: '0 20px 60px rgba(255, 107, 53, 0.2)'
     }}>
+      {/* Background Effects */}
       <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-2xl"></div>
       <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-red-500/10 to-transparent rounded-full blur-2xl"></div>
       
@@ -224,7 +289,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
         <div className={`space-y-2 ${isPhoneCover ? 'md:col-span-2' : ''}`}>
           <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
             <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-            <span>Product Name</span>
+            <span>Product Name *</span>
           </label>
           <input
             type="text"
@@ -232,22 +297,36 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter product name"
-            required
             className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
+            required
+          />
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Description
+          </label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            rows="4"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
         </div>
 
         {/* Category */}
-        <div className="space-y-2">
-          <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-            <span>Category</span>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Category *
           </label>
           <select
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white hover:border-orange-500/50"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+            required
           >
             {categories.map(cat => (
               <option key={cat} value={cat}>{cat}</option>
@@ -257,11 +336,10 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
 
         {/* Pricing */}
         {isPhoneCover ? (
-          <>
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-                <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-                <span>Price Without MagSafe (LE)</span>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Price Without MagSafe (LE) *
               </label>
               <input
                 type="number"
@@ -269,15 +347,13 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
                 value={formData.price_without_magsafe}
                 onChange={handleChange}
                 step="0.01"
-                placeholder="0.00"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required
-                className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-                <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-                <span>⚡ Price With MagSafe (LE)</span>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Price With MagSafe (LE) *
               </label>
               <input
                 type="number"
@@ -285,17 +361,15 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
                 value={formData.price_with_magsafe}
                 onChange={handleChange}
                 step="0.01"
-                placeholder="0.00"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required
-                className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
               />
             </div>
-          </>
+          </div>
         ) : (
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-              <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-              <span>Price (LE)</span>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Price (LE) *
             </label>
             <input
               type="number"
@@ -303,39 +377,36 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
               value={formData.price}
               onChange={handleChange}
               step="0.01"
-              placeholder="0.00"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
-              className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
             />
           </div>
         )}
 
-        {/* Stock */}
-        <div className="space-y-2">
-          <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-            <span>Stock Quantity</span>
+        {/* Stock Quantity */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Stock Quantity *
           </label>
           <input
             type="number"
             name="stock_quantity"
             value={formData.stock_quantity}
             onChange={handleChange}
-            placeholder="0"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
             required
-            className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
           />
         </div>
 
         {/* Images */}
-        <div className="space-y-2 md:col-span-2">
-          <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-            <span>Product Images</span>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Product Images * (Multiple images allowed)
           </label>
           
+          {/* Upload Button */}
           <div className="mb-4">
-            <label className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl cursor-pointer hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold shadow-lg" style={{boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)'}}>
+            <label className="inline-flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg cursor-pointer hover:bg-orange-600 transition-colors">
               <FiUpload className="mr-2" />
               {uploadingImages ? 'Uploading...' : 'Upload Images'}
               <input
@@ -349,24 +420,25 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
             </label>
           </div>
 
-          <p className="text-xs text-white/50 mb-2">Or paste an image URL below (optional)</p>
+          {/* Add Image URL */}
           <div className="flex gap-2 mb-4">
             <input
               type="url"
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="https://example.com/image.jpg"
-              className="flex-1 bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
+              placeholder="Or paste image URL"
+              className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
             <button
               type="button"
               onClick={addImageUrl}
-              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-500 transition-all duration-300"
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
             >
               <FiPlus />
             </button>
           </div>
 
+          {/* Image Preview */}
           {images.length > 0 && (
             <div className="grid grid-cols-3 gap-4">
               {images.map((img, index) => (
@@ -374,17 +446,17 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
                   <img
                     src={img}
                     alt={`Product ${index + 1}`}
-                    className="w-full h-32 object-cover rounded-xl border-2 border-orange-500/30"
+                    className="w-full h-32 object-cover rounded-lg"
                   />
                   <button
                     type="button"
                     onClick={() => removeImage(index)}
-                    className="absolute top-2 right-2 w-8 h-8 bg-red-500/80 backdrop-blur-sm text-white rounded-lg hover:bg-red-600 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100"
+                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   >
-                    <FiX size={16} />
+                    <FiX />
                   </button>
                   {index === 0 && (
-                    <span className="absolute bottom-2 left-2 bg-orange-500/80 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">
+                    <span className="absolute bottom-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
                       Primary
                     </span>
                   )}
@@ -394,27 +466,10 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
           )}
         </div>
 
-        {/* Description */}
-        <div className="space-y-2 md:col-span-2">
-          <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-            <span>Description</span>
-          </label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Enter product description"
-            rows="3"
-            className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all resize-none text-white placeholder-white/40 hover:border-orange-500/50"
-          />
-        </div>
-
         {/* Colors */}
-        <div className="space-y-2 md:col-span-2">
-          <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-            <span>Available Colors</span>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Available Colors
           </label>
           
           <div className="flex gap-2 mb-4">
@@ -423,13 +478,13 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
               value={newColor}
               onChange={(e) => setNewColor(e.target.value)}
               placeholder="Enter color name"
-              className="flex-1 bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
+              className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addColor())}
             />
             <button
               type="button"
               onClick={addColor}
-              className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold flex items-center gap-2"
+              className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors flex items-center gap-2"
             >
               <FiPlus /> Add
             </button>
@@ -440,7 +495,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
               {colors.map((color, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md border border-orange-500/30 text-white px-3 py-1 rounded-full"
+                  className="inline-flex items-center gap-2 bg-gray-800 text-white px-3 py-1 rounded-full"
                 >
                   {color}
                   <button
@@ -457,36 +512,36 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
         </div>
 
         {/* Models */}
-        <div className="space-y-2 md:col-span-2">
-          <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
-            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-            <span>{isPhoneCover ? 'iPhone Models' : isAirPodsCover ? 'AirPods Models' : 'Models (Optional)'}</span>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            {isPhoneCover ? 'iPhone Models *' : isAirPodsCover ? 'AirPods Models' : 'Models (Optional)'}
           </label>
 
           {isPhoneCover ? (
+            // Checkbox list for Phone Covers
             <div>
               <div className="flex gap-2 mb-4">
                 <button
                   type="button"
                   onClick={selectAllModels}
-                  className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-500 transition-all duration-300 text-sm font-semibold"
+                  className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm"
                 >
                   Select All
                 </button>
                 <button
                   type="button"
                   onClick={deselectAllModels}
-                  className="px-4 py-2 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-600 transition-all duration-300 text-sm font-semibold"
+                  className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm"
                 >
                   Deselect All
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto bg-black/30 backdrop-blur-md border border-orange-500/20 p-4 rounded-xl">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto bg-gray-800 p-4 rounded-lg">
                 {iPhoneModels.map((model) => (
                   <label
                     key={model}
-                    className="flex items-center gap-2 text-white cursor-pointer hover:bg-white/5 p-2 rounded transition-all"
+                    className="flex items-center gap-2 text-white cursor-pointer hover:bg-gray-700 p-2 rounded"
                   >
                     <input
                       type="checkbox"
@@ -506,6 +561,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
               )}
             </div>
           ) : (
+            // Manual input for AirPods Covers and others
             <div>
               <div className="flex gap-2 mb-4">
                 <input
@@ -513,13 +569,13 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
                   value={newModel}
                   onChange={(e) => setNewModel(e.target.value)}
                   placeholder="Enter model name"
-                  className="flex-1 bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-white placeholder-white/40 hover:border-orange-500/50"
+                  className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addCustomModel())}
                 />
                 <button
                   type="button"
                   onClick={addCustomModel}
-                  className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold flex items-center gap-2"
+                  className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors flex items-center gap-2"
                 >
                   <FiPlus /> Add
                 </button>
@@ -530,7 +586,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
                   {models.map((model, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md border border-orange-500/30 text-white px-3 py-1 rounded-full"
+                      className="inline-flex items-center gap-2 bg-gray-800 text-white px-3 py-1 rounded-full"
                     >
                       {model}
                       <button
@@ -548,26 +604,21 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
           )}
         </div>
 
-        {/* Buttons */}
-        <div className="md:col-span-2 flex space-x-4">
-          <button 
+        {/* Action Buttons */}
+        <div className="flex gap-4 pt-6">
+          <button
             type="submit"
             disabled={loading || uploadingImages}
-            className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white py-3 rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-semibold shadow-lg relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)'}}
+            className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white py-3 rounded-lg hover:from-red-600 hover:to-orange-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-            <span className="relative z-10">
-              {loading ? 'Saving...' : existingProduct ? 'Update Product' : 'Create Product'}
-            </span>
+            {loading ? 'Saving...' : existingProduct ? 'Update Product' : 'Create Product'}
           </button>
           
           {onCancel && (
             <button
               type="button"
               onClick={onCancel}
-              disabled={loading || uploadingImages}
-              className="px-8 py-3 bg-gradient-to-r from-gray-800/80 to-black/80 text-white rounded-xl hover:from-gray-700/80 hover:to-gray-900/80 transition-all duration-300 font-semibold border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
             >
               Cancel
             </button>
@@ -578,4 +629,4 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
   );
 };
 
-export default ProductFormStyled;
+export default ProductFormRestructured;
