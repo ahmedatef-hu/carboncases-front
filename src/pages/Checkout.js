@@ -42,7 +42,7 @@ const Checkout = () => {
         items: cart.map(item => ({
           productId: item.id,
           quantity: item.quantity,
-          variant: item.variant || null
+          variant: item.variant ? item.variant.replace(/-/g, '_') : null // Convert hyphen to underscore
         })),
         shippingAddress: `${shippingInfo.fullName}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.governorate}, Phone: ${shippingInfo.phone}`
       };

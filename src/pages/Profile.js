@@ -206,9 +206,18 @@ const Profile = () => {
                           <img src={item.imageUrl} alt={item.productName} className="w-16 h-16 object-cover rounded-lg" />
                           <div className="flex-grow">
                             <p className="font-medium">{item.productName}</p>
+                            {item.variant && (
+                              <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold mr-2 ${
+                                item.variant === 'with_magsafe' 
+                                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' 
+                                  : 'bg-gray-700/20 text-gray-400 border border-gray-600/30'
+                              }`}>
+                                {item.variant === 'with_magsafe' ? '⚡ With MagSafe' : 'Without MagSafe'}
+                              </span>
+                            )}
                             <p className="text-sm text-gray-400">Qty: {item.quantity}</p>
                           </div>
-                          <p className="font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
+                          <p className="font-semibold">LE {(item.price * item.quantity).toFixed(2)}</p>
                         </div>
                       ))}
                     </div>
@@ -216,7 +225,7 @@ const Profile = () => {
 
                   <div className="border-t border-gray-800 pt-4 flex justify-between items-center">
                     <span className="text-gray-400">Total</span>
-                    <span className="text-xl font-bold text-accent">${parseFloat(order.total_price).toFixed(2)}</span>
+                    <span className="text-xl font-bold text-accent">LE {parseFloat(order.total_amount || order.total_price || 0).toFixed(2)}</span>
                   </div>
                 </div>
               ))

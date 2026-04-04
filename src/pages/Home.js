@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
+import api from '../utils/api';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('bestsellers');
   const [expandedSeries, setExpandedSeries] = useState(1);
   const carouselRef = useRef(null);
   const featuredCarouselRef = useRef(null);
@@ -20,7 +20,7 @@ const Home = () => {
       rating: 5,
       description: 'A refined take on our signature design, delivering a premium look and feel through a performance build, metal accents, and a smooth touch profile.',
       image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
-      category: 'impact-series-1',
+      category: 'phone-covers',
       color: 'red'
     },
     {
@@ -30,7 +30,7 @@ const Home = () => {
       rating: 5,
       description: 'Enhanced protection with advanced carbon fiber weaving technology. Premium materials meet cutting-edge design for ultimate device security.',
       image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
-      category: 'impact-series-2',
+      category: 'phone-covers',
       color: 'blue'
     },
     {
@@ -40,7 +40,7 @@ const Home = () => {
       rating: 5,
       description: 'Minimalist design with maximum protection. Ultra-lightweight carbon fiber construction that showcases your device while keeping it safe.',
       image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
-      category: 'skeleton-series',
+      category: 'phone-covers',
       color: 'teal'
     },
     {
@@ -50,7 +50,7 @@ const Home = () => {
       rating: 5,
       description: 'Military-grade aramid fiber construction. Bulletproof material technology adapted for everyday device protection with premium aesthetics.',
       image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
-      category: 'aramid-series',
+      category: 'phone-covers',
       color: 'gray'
     }
   ];
@@ -81,85 +81,12 @@ const Home = () => {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        // Temporary mock data while database is being fixed
-        const mockProducts = [
-          {
-            id: 1,
-            name: 'Carbon Fiber iPhone 15 Pro Case',
-            price: 299,
-            image_url: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
-            stock: 15,
-            category: 'phone-covers'
-          },
-          {
-            id: 2,
-            name: 'Premium Carbon Wallet',
-            price: 199,
-            image_url: 'https://www.simplycarbonfiber.com/cdn/shop/products/real-carbon-fiber-cash-card-slim-wallet-wallets-money-clips-carbo-neek-855759.jpg?v=1639005598&width=1080',
-            stock: 8,
-            category: 'wallets'
-          },
-          {
-            id: 3,
-            name: 'AirPods Pro Carbon Case',
-            price: 149,
-            image_url: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707',
-            stock: 12,
-            category: 'airpods-covers'
-          },
-          {
-            id: 4,
-            name: 'Carbon License Plate Frame',
-            price: 89,
-            image_url: 'https://apexcarbon.ca/cdn/shop/files/4_976b0fbd-9dd5-47e9-bc22-af1105475223.jpg?v=1765354755',
-            stock: 20,
-            category: 'car-accessories'
-          }
-        ];
-        
-        setFeaturedProducts(mockProducts);
-        
-        // Uncomment this when database is working
-        // const response = await api.get('/products?sort=newest');
-        // setFeaturedProducts(response.data.slice(0, 4));
+        // Fetch real products from database
+        const response = await api.get('/products');
+        setFeaturedProducts(response.data.slice(0, 4)); // Show only 4 products (1 row)
       } catch (error) {
         console.error('Error fetching products:', error);
-        // Fallback to mock data if API fails
-        const mockProducts = [
-          {
-            id: 1,
-            name: 'Carbon Fiber iPhone 15 Pro Case',
-            price: 299,
-            image_url: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
-            stock: 15,
-            category: 'phone-covers'
-          },
-          {
-            id: 2,
-            name: 'Premium Carbon Wallet',
-            price: 199,
-            image_url: 'https://www.simplycarbonfiber.com/cdn/shop/products/real-carbon-fiber-cash-card-slim-wallet-wallets-money-clips-carbo-neek-855759.jpg?v=1639005598&width=1080',
-            stock: 8,
-            category: 'wallets'
-          },
-          {
-            id: 3,
-            name: 'AirPods Pro Carbon Case',
-            price: 149,
-            image_url: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707',
-            stock: 12,
-            category: 'airpods-covers'
-          },
-          {
-            id: 4,
-            name: 'Carbon License Plate Frame',
-            price: 89,
-            image_url: 'https://apexcarbon.ca/cdn/shop/files/4_976b0fbd-9dd5-47e9-bc22-af1105475223.jpg?v=1765354755',
-            stock: 20,
-            category: 'car-accessories'
-          }
-        ];
-        setFeaturedProducts(mockProducts);
+        setFeaturedProducts([]);
       } finally {
         setLoading(false);
       }
@@ -603,10 +530,7 @@ const Home = () => {
       <section className="py-32 px-4 relative overflow-hidden bg-black">
         {/* Advanced Creative Background */}
         <div className="absolute inset-0">
-          {/* Pure Black Base */}
           <div className="absolute inset-0 bg-black"></div>
-          
-          {/* Animated Hexagon Pattern */}
           <div className="absolute inset-0 opacity-8">
             <div className="absolute inset-0" style={{
               backgroundImage: `
@@ -617,25 +541,20 @@ const Home = () => {
               animation: 'hexagon-drift 25s linear infinite'
             }}></div>
           </div>
-          
-          {/* Floating Energy Orbs */}
           <div className="absolute inset-0">
             <div className="absolute top-20 left-20 w-40 h-40 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-2xl animate-energy-float" style={{animationDuration: '10s'}}></div>
             <div className="absolute bottom-32 right-32 w-60 h-60 bg-gradient-to-r from-red-500/15 to-orange-500/15 rounded-full blur-3xl animate-energy-float" style={{animationDuration: '15s', animationDelay: '5s'}}></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full blur-3xl animate-energy-pulse"></div>
           </div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          {/* Enhanced Header with Tabs */}
           <div className="mb-20">
             <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl font-black mb-8 text-white text-center" style={{
               textShadow: '0 0 50px rgba(255, 107, 53, 0.6), 0 0 100px rgba(255, 255, 255, 0.1)'
             }}>
-              FEATURED COLLECTION
+              OUR PRODUCTS
             </h2>
             
-            {/* Creative Divider */}
             <div className="flex items-center justify-center space-x-8 mb-12">
               <div className="flex space-x-3">
                 <div className="w-4 h-4 bg-orange-500 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
@@ -649,108 +568,44 @@ const Home = () => {
                 <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
               </div>
             </div>
-            
-            {/* Enhanced Tabs */}
-            <div className="flex justify-center space-x-16 border-b border-gray-800/50 relative">
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent"></div>
-              
-              <button
-                onClick={() => setActiveTab('bestsellers')}
-                className={`group pb-8 text-xl font-bold uppercase tracking-wider transition-all duration-500 relative ${
-                  activeTab === 'bestsellers'
-                    ? 'text-orange-400'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <span className="relative z-10">Best Sellers</span>
-                {activeTab === 'bestsellers' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-pulse-glow"></div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-lg"></div>
-              </button>
-              
-              <button
-                onClick={() => setActiveTab('newarrivals')}
-                className={`group pb-8 text-xl font-bold uppercase tracking-wider transition-all duration-500 relative ${
-                  activeTab === 'newarrivals'
-                    ? 'text-orange-400'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <span className="relative z-10">New Arrivals</span>
-                {activeTab === 'newarrivals' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-pulse-glow"></div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-lg"></div>
-              </button>
-            </div>
           </div>
 
-          {/* Enhanced Desktop Grid */}
+          {/* Desktop Grid */}
           <div className="hidden lg:block">
             {loading ? (
               <div className="flex justify-center py-20">
                 <div className="relative">
                   <div className="w-20 h-20 border-4 border-gray-800 border-t-orange-500 rounded-full animate-spin"></div>
                   <div className="absolute inset-0 w-20 h-20 border-4 border-transparent border-b-red-500 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
-                  <div className="absolute inset-2 w-16 h-16 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full animate-pulse"></div>
                 </div>
               </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-                {/* Grid Background Effect */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="grid grid-cols-4 gap-8 h-full">
-                    {[...Array(4)].map((_, i) => (
-                      <div key={i} className="bg-gradient-to-b from-orange-500/20 to-red-500/20 rounded-2xl animate-pulse" style={{animationDelay: `${i * 0.5}s`}}></div>
-                    ))}
-                  </div>
-                </div>
-                
+            ) : featuredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {featuredProducts.map((product, index) => (
                   <div 
                     key={product.id} 
                     className="relative group"
                     style={{animationDelay: `${index * 0.2}s`}}
                   >
-                    {/* Floating Particles for Product Cards */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10">
-                      {[...Array(8)].map((_, i) => (
-                        <div
-                          key={i}
-                          className="absolute w-2 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-float-product-particle"
-                          style={{
-                            left: `${10 + i * 12}%`,
-                            top: `${20 + (i % 3) * 25}%`,
-                            animationDelay: `${i * 0.3}s`,
-                            animationDuration: `${2 + i * 0.5}s`
-                          }}
-                        />
-                      ))}
-                    </div>
-                    
-                    {/* Glow Ring Effect */}
-                    <div className="absolute -inset-4 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700 animate-pulse-glow"></div>
-                    
-                    {/* Product Card */}
-                    <div className="relative transform transition-all duration-700 group-hover:scale-105 group-hover:-translate-y-4 animate-fade-in-up">
+                    <div className="absolute -inset-4 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    <div className="relative transform transition-all duration-700 group-hover:scale-105 group-hover:-translate-y-4">
                       <ProductCard product={product} />
                     </div>
-                    
-                    {/* Spotlight Effect */}
-                    <div className="absolute inset-0 bg-gradient-radial from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl pointer-events-none"></div>
                   </div>
                 ))}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <p className="text-white/60 text-xl">No products available yet</p>
               </div>
             )}
           </div>
 
-          {/* Mobile/Tablet Carousel */}
+          {/* Mobile Carousel */}
           <div className="lg:hidden relative">
-            {/* Navigation Arrows */}
             <button 
               onClick={scrollFeaturedLeft}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 rounded-full"
               style={{ boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)' }}
             >
               <FiChevronLeft size={20} />
@@ -758,19 +613,15 @@ const Home = () => {
             
             <button 
               onClick={scrollFeaturedRight}
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 rounded-full"
               style={{ boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)' }}
             >
               <FiChevronRight size={20} />
             </button>
 
-            {/* Scrollable Container */}
             {loading ? (
               <div className="flex justify-center py-20">
-                <div className="relative">
-                  <div className="w-16 h-16 border-4 border-gray-800 border-t-orange-500 rounded-full animate-spin"></div>
-                  <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-b-red-500 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
-                </div>
+                <div className="w-16 h-16 border-4 border-gray-800 border-t-orange-500 rounded-full animate-spin"></div>
               </div>
             ) : (
               <div 
@@ -778,7 +629,7 @@ const Home = () => {
                 className="flex overflow-x-auto scrollbar-hide gap-6 px-16 py-4 scroll-smooth"
               >
                 {featuredProducts.map(product => (
-                  <div key={product.id} className="flex-shrink-0 w-72 transform hover:scale-105 transition-all duration-500">
+                  <div key={product.id} className="flex-shrink-0 w-72">
                     <ProductCard product={product} />
                   </div>
                 ))}
@@ -787,22 +638,14 @@ const Home = () => {
           </div>
 
           <div className="text-center mt-24">
-            {/* Creative CTA Button */}
             <div className="relative inline-block group">
-              {/* Glow Ring */}
-              <div className="absolute -inset-3 bg-gradient-to-r from-orange-500/40 to-red-500/40 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700 animate-pulse-glow"></div>
-              
+              <div className="absolute -inset-3 bg-gradient-to-r from-orange-500/40 to-red-500/40 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
               <Link
                 to="/products"
                 className="relative inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-600 text-white px-14 py-5 font-black text-lg tracking-widest uppercase transition-all duration-500 transform group-hover:scale-105 overflow-hidden rounded-xl"
                 style={{ boxShadow: '0 15px 40px rgba(255, 107, 53, 0.4)' }}
               >
-                {/* Sweep Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                
-                {/* Shimmer Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                
                 <span className="relative z-10 mr-3">VIEW ALL PRODUCTS</span>
                 <FiArrowRight size={22} className="relative z-10 transform group-hover:translate-x-2 transition-transform duration-300" />
               </Link>
@@ -810,6 +653,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       {/* Shop by Phone Series */}
       <section className="py-32 px-4 relative overflow-hidden bg-black">
         {/* Advanced Creative Background */}

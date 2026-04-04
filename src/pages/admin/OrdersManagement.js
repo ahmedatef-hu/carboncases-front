@@ -105,7 +105,7 @@ const OrdersManagement = () => {
       shipped: orders.filter(o => o.status === 'shipped').length,
       completed: orders.filter(o => o.status === 'completed').length,
       canceled: orders.filter(o => o.status === 'canceled').length,
-      totalRevenue: orders.reduce((sum, order) => sum + parseFloat(order.total_price), 0)
+      totalRevenue: orders.reduce((sum, order) => sum + parseFloat(order.total_amount || order.total_price || 0), 0)
     };
     return stats;
   };
@@ -323,7 +323,7 @@ const OrdersManagement = () => {
                       
                       <div className="flex items-center space-x-2">
                         <FiDollarSign className="w-4 h-4 text-white/50" />
-                        <span className="font-black text-lg text-white" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_price).toLocaleString()}</span>
+                        <span className="font-black text-lg text-white" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_amount || order.total_price || 0).toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
@@ -388,7 +388,7 @@ const OrdersManagement = () => {
                     </div>
                   </td>
                   <td className="py-4 px-6">
-                    <span className="font-black text-white" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_price).toLocaleString()}</span>
+                    <span className="font-black text-white" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_amount || order.total_price || 0).toLocaleString()}</span>
                   </td>
                   <td className="py-4 px-6">
                     <span className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide border ${getStatusColor(order.status)}`}>
@@ -619,7 +619,10 @@ const OrdersManagement = () => {
                   <div className="space-y-3">
                     <div className="flex justify-between text-white/70">
                       <span>Subtotal</span>
-                      <span>LE {parseFloat(selectedOrder.total_price).toFixed(2)}</span>
+                      <span>LE {orderDetails && orderDetails.items ? 
+                        orderDetails.items.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0).toFixed(2) 
+                        : parseFloat(selectedOrder.total_amount || selectedOrder.total_price || 0).toFixed(2)
+                      }</span>
                     </div>
                     <div className="flex justify-between text-white/70">
                       <span>Shipping</span>
@@ -630,7 +633,7 @@ const OrdersManagement = () => {
                       <span className="text-2xl font-black text-purple-400" style={{
                         textShadow: '0 0 20px rgba(168, 85, 247, 0.4)'
                       }}>
-                        LE {parseFloat(selectedOrder.total_price).toFixed(2)}
+                        LE {parseFloat(selectedOrder.total_amount || selectedOrder.total_price || 0).toFixed(2)}
                       </span>
                     </div>
                   </div>

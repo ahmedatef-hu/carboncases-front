@@ -55,8 +55,6 @@ const ProductCard = ({ product, onAddToWishlist }) => {
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
-            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-          />
           
           {/* Glow Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-orange-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -81,12 +79,12 @@ const ProductCard = ({ product, onAddToWishlist }) => {
           </div>
 
           {/* Stock Badge */}
-          {product.stock < 10 && product.stock > 0 && (
+          {(product.stock_quantity || 0) < 10 && (product.stock_quantity || 0) > 0 && (
             <div className="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-3 py-2 rounded-full uppercase tracking-wide glow-orange">
-              Only {product.stock} left!
+              Only {product.stock_quantity} left!
             </div>
           )}
-          {product.stock === 0 && (
+          {(product.stock_quantity || 0) === 0 && (
             <div className="absolute top-4 left-4 bg-gradient-to-r from-gray-800 to-black text-white text-xs font-bold px-3 py-2 rounded-full uppercase tracking-wide">
               Out of Stock
             </div>
@@ -143,9 +141,9 @@ const ProductCard = ({ product, onAddToWishlist }) => {
           
           <button
             onClick={handleAddToCart}
-            disabled={(product.stock_quantity || product.stock || 0) === 0}
+            disabled={(product.stock_quantity || 0) === 0}
             className="bg-gradient-to-r from-orange-500 to-red-600 text-white p-3 rounded-full hover:from-red-600 hover:to-orange-500 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-glow-orange transform hover:scale-110"
-            title={(product.stock_quantity || product.stock || 0) === 0 ? 'Sold Out' : 'Add to Cart'}
+            title={(product.stock_quantity || 0) === 0 ? 'Sold Out' : 'Add to Cart'}
           >
             <FiShoppingCart size={20} />
           </button>

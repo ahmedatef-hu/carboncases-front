@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FiShoppingCart, FiUser, FiHeart, FiMenu, FiX, FiSearch, FiChevronDown } from 'react-icons/fi';
+import { FiShoppingCart, FiUser, FiHeart, FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
@@ -10,7 +10,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [productsDropdown, setProductsDropdown] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -86,51 +85,12 @@ const Navbar = () => {
                 <span className={`nav-link-underline ${isActive('/') ? 'w-full' : ''}`}></span>
               </Link>
               
-              {/* Products Dropdown with Creative Effects */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setProductsDropdown(true)}
-                onMouseLeave={() => setProductsDropdown(false)}
-              >
-                <button className={`nav-link-glow group flex items-center space-x-1 transition-all duration-500 font-medium uppercase tracking-wide text-sm ${
-                  isCategoryActive('phone-covers') ? 'text-orange-500' : 'text-white hover:text-orange-500'
-                }`}>
-                  <span className="relative z-10">PHONE CASES</span>
-                  <FiChevronDown size={14} className="transform group-hover:rotate-180 transition-transform duration-500" />
-                  <span className={`nav-link-underline ${isCategoryActive('phone-covers') ? 'w-full' : ''}`}></span>
-                </button>
-                
-                {productsDropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-gradient-to-br from-gray-900 to-black text-white shadow-2xl border border-orange-500/30 z-50 rounded-lg overflow-hidden backdrop-blur-xl animate-fade-in-up">
-                    {/* Dropdown Background Effects */}
-                    <div className="absolute inset-0 pointer-events-none">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-500/20 to-transparent rounded-full blur-xl"></div>
-                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-red-500/20 to-transparent rounded-full blur-xl"></div>
-                    </div>
-                    
-                    <div className="py-2 relative z-10">
-                      <Link to="/products?category=phone-covers" className="dropdown-item-glow block px-4 py-3 hover:bg-orange-500/20 transition-all duration-300 text-sm font-medium border-l-2 border-transparent hover:border-orange-500">
-                        <span className="flex items-center">
-                          <span className="w-2 h-2 bg-orange-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                          iPhone Cases
-                        </span>
-                      </Link>
-                      <Link to="/products?category=phone-covers" className="dropdown-item-glow block px-4 py-3 hover:bg-orange-500/20 transition-all duration-300 text-sm font-medium border-l-2 border-transparent hover:border-orange-500">
-                        <span className="flex items-center">
-                          <span className="w-2 h-2 bg-orange-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                          Samsung Cases
-                        </span>
-                      </Link>
-                      <Link to="/products?category=phone-covers" className="dropdown-item-glow block px-4 py-3 hover:bg-orange-500/20 transition-all duration-300 text-sm font-medium border-l-2 border-transparent hover:border-orange-500">
-                        <span className="flex items-center">
-                          <span className="w-2 h-2 bg-orange-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                          Carbon Fiber Cases
-                        </span>
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <Link to="/products?category=phone-covers" className={`nav-link-glow group relative transition-all duration-500 font-medium uppercase tracking-wide text-sm ${
+                isCategoryActive('phone-covers') ? 'text-orange-500' : 'text-white hover:text-orange-500'
+              }`}>
+                <span className="relative z-10">PHONE CASES</span>
+                <span className={`nav-link-underline ${isCategoryActive('phone-covers') ? 'w-full' : ''}`}></span>
+              </Link>
 
               <Link to="/products?category=wallets" className={`nav-link-glow group relative transition-all duration-500 font-medium uppercase tracking-wide text-sm ${
                 isCategoryActive('wallets') ? 'text-orange-500' : 'text-white hover:text-orange-500'
@@ -144,20 +104,6 @@ const Navbar = () => {
               }`}>
                 <span className="relative z-10">AIRPODS CASES</span>
                 <span className={`nav-link-underline ${isCategoryActive('airpods') ? 'w-full' : ''}`}></span>
-              </Link>
-              
-              <Link to="/products" className={`nav-link-glow group relative transition-all duration-500 font-medium uppercase tracking-wide text-sm ${
-                isProductsActive() ? 'text-orange-500' : 'text-white hover:text-orange-500'
-              }`}>
-                <span className="relative z-10">NEW ARRIVALS</span>
-                <span className={`nav-link-underline ${isProductsActive() ? 'w-full' : ''}`}></span>
-              </Link>
-              
-              <Link to="/products?category=car-accessories" className={`nav-link-glow group relative transition-all duration-500 font-medium uppercase tracking-wide text-sm ${
-                isCategoryActive('car-accessories') ? 'text-orange-500' : 'text-white hover:text-orange-500'
-              }`}>
-                <span className="relative z-10">ACCESSORIES</span>
-                <span className={`nav-link-underline ${isCategoryActive('car-accessories') ? 'w-full' : ''}`}></span>
               </Link>
             </div>
 
@@ -276,11 +222,6 @@ const Navbar = () => {
                   isCategoryActive('airpods') ? 'text-orange-500 bg-orange-500/10 border-orange-500' : 'text-white border-transparent'
                 }`}>
                   AIRPODS CASES
-                </Link>
-                <Link to="/products" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link block py-3 px-4 hover:bg-orange-500/10 transition-all duration-300 font-medium uppercase tracking-wide rounded-lg border-l-2 hover:border-orange-500 ${
-                  isProductsActive() ? 'text-orange-500 bg-orange-500/10 border-orange-500' : 'text-white border-transparent'
-                }`}>
-                  NEW ARRIVALS
                 </Link>
                 {isAuthenticated && (
                   <>
