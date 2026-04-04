@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiPlus, FiX, FiUpload, FiTrash2 } from 'react-icons/fi';
+import { FiPlus, FiX, FiUpload } from 'react-icons/fi';
 import api from '../../utils/api';
 
 /**
