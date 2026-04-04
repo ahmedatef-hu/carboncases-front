@@ -31,14 +31,12 @@ const AdminDashboard = () => {
       }
 
       try {
-        // Verify token with backend
+        // Set authorization header
         api.defaults.headers.common['Authorization'] = `Bearer ${adminToken}`;
-        console.log('🔄 Verifying admin token with backend...');
-        await api.get('/admin/stats'); // Test admin endpoint
-        console.log('✅ Admin token verified successfully');
+        console.log('✅ Admin token found, setting admin data...');
         setAdmin(JSON.parse(savedAdmin));
       } catch (error) {
-        console.error('❌ Admin authentication failed:', error);
+        console.error('❌ Error parsing admin data:', error);
         localStorage.removeItem('adminToken');
         localStorage.removeItem('admin');
         delete api.defaults.headers.common['Authorization'];
