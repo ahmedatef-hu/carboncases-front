@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FiPlus, FiEdit2, FiTrash2, FiSave, FiX, FiPackage, FiSearch } from 'react-icons/fi';
 import api from '../../utils/api';
-import ProductFormEnhanced from './ProductFormEnhanced';
+import ProductFormRestructured from './ProductFormRestructured';
 
 const ProductsManagement = () => {
   const [products, setProducts] = useState([]);
@@ -311,7 +311,7 @@ const ProductsManagement = () => {
 
       {/* Enhanced Product Form */}
       {showEnhancedForm && (
-        <ProductFormEnhanced
+        <ProductFormRestructured
           onSuccess={() => {
             setShowEnhancedForm(false);
             fetchProducts();
