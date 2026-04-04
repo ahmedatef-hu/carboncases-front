@@ -120,19 +120,32 @@ const ProductCard = ({ product, onAddToWishlist }) => {
         
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-white">
-              LE {product.price.toLocaleString()}
-            </span>
-            <span className="text-sm text-gray-500 line-through">
-              LE {(product.price * 1.2).toLocaleString()}
-            </span>
+            {product.category === 'Phone Covers' && product.price_without_magsafe ? (
+              <>
+                <span className="text-lg font-bold text-white">
+                  From LE {parseFloat(product.price_without_magsafe).toLocaleString()}
+                </span>
+                <span className="text-xs text-orange-400">
+                  With MagSafe: LE {parseFloat(product.price_with_magsafe).toLocaleString()}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="text-2xl font-bold text-white">
+                  LE {parseFloat(product.price || 0).toLocaleString()}
+                </span>
+                <span className="text-sm text-gray-500 line-through">
+                  LE {(parseFloat(product.price || 0) * 1.2).toLocaleString()}
+                </span>
+              </>
+            )}
           </div>
           
           <button
             onClick={handleAddToCart}
-            disabled={product.stock === 0}
+            disabled={(product.stock_quantity || product.stock || 0) === 0}
             className="bg-gradient-to-r from-orange-500 to-red-600 text-white p-3 rounded-full hover:from-red-600 hover:to-orange-500 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-glow-orange transform hover:scale-110"
-            title={product.stock === 0 ? 'Sold Out' : 'Add to Cart'}
+            title={(product.stock_quantity || product.stock || 0) === 0 ? 'Sold Out' : 'Add to Cart'}
           >
             <FiShoppingCart size={20} />
           </button>
