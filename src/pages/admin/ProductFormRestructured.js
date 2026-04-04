@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiX, FiUpload, FiPackage, FiEdit2 } from 'react-icons/fi';
+import { FiPlus, FiX, FiUpload } from 'react-icons/fi';
 import api from '../../utils/api';
 
 const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
@@ -37,6 +37,13 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
 
   useEffect(() => {
     if (existingProduct) {
+      console.log('📝 Loading existing product for edit:', {
+        id: existingProduct.id,
+        name: existingProduct.name,
+        stock_quantity: existingProduct.stock_quantity,
+        stock: existingProduct.stock
+      });
+      
       setFormData({
         name: existingProduct.name || '',
         description: existingProduct.description || '',
@@ -174,6 +181,9 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
         colors,
         models,
       };
+
+      console.log('📤 Sending product data:', productData);
+      console.log('📊 Stock quantity:', formData.stock_quantity, '→', parseInt(formData.stock_quantity));
 
       if (formData.category === 'Phone Covers') {
         productData.price_without_magsafe = parseFloat(formData.price_without_magsafe);

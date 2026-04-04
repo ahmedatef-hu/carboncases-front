@@ -25,11 +25,6 @@ const Navbar = () => {
     return location.pathname === path;
   };
 
-  // Check if products link is active (only when no specific category)
-  const isProductsActive = () => {
-    return location.pathname === '/products' && !location.search;
-  };
-
   // Check if specific category is active
   const isCategoryActive = (category) => {
     return location.pathname === '/products' && location.search.includes(category);
