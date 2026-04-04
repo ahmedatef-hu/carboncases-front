@@ -11,6 +11,11 @@ const ProductCard = ({ product, onAddToWishlist }) => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [addedToWishlist, setAddedToWishlist] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Get product images (use image_count from backend or default to 1)
+  const imageCount = product.image_count || 0;
+  const hasMultipleImages = imageCount > 1;
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -100,6 +105,19 @@ const ProductCard = ({ product, onAddToWishlist }) => {
             {product.name}
           </h3>
         </Link>
+        
+        {/* Image Count Indicator */}
+        {hasMultipleImages && (
+          <div className="flex items-center space-x-2 text-sm text-orange-400">
+            <div className="flex space-x-1">
+              {[...Array(Math.min(imageCount, 5))].map((_, i) => (
+                <div key={i} className="w-2 h-2 bg-orange-500 rounded-full"></div>
+              ))}
+              {imageCount > 5 && <span className="text-xs ml-1">+{imageCount - 5}</span>}
+            </div>
+            <span>{imageCount} images</span>
+          </div>
+        )}
         
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
