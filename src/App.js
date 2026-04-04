@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
@@ -25,10 +25,16 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 
 // Protected Admin Route Component
 const ProtectedAdminRoute = ({ children }) => {
+  const location = useLocation();
   const adminToken = localStorage.getItem('adminToken');
   const admin = localStorage.getItem('admin');
   
+  // If not on admin login page and no admin credentials, redirect to admin login
   if (!adminToken || !admin) {
+    if (location.pathname !== '/admin/login') {
+      window.location.href = '/admin/login';
+      return null;
+    }
     return <AdminLogin />;
   }
   

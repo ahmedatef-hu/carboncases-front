@@ -9,41 +9,74 @@ const AuthCallback = () => {
     const token = searchParams.get('token');
     const error = searchParams.get('error');
 
+    console.log('🔍 AuthCallback - URL params:', { token: token ? 'exists' : 'missing', error });
+
     if (error) {
-      console.error('OAuth error:', error);
+      console.error('❌ OAuth error:', error);
+      alert('Authentication failed: ' + error);
       navigate('/login?error=' + error);
       return;
     }
 
     if (token) {
+      console.log('✅ Token received from Google OAuth:', token.substring(0, 20) + '...');
+      
       // Save token
       localStorage.setItem('token', token);
+      console.log('💾 Token saved to localStorage');
+      
+      // Use correct API URL based on environment
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+      
+      console.log('🔄 Fetching user profile from:', `${apiUrl}/user/profile`);
       
       // Fetch user data
-      fetch('https://carboncases-back.vercel.app/api/user/profile', {
+      fetch(`${apiUrl}/user/profile`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
         .then(res => {
-          if (!res.ok) throw new Error('Failed to fetch user');
+          console.log('📡 Profile response status:', res.status);
+          if (!res.ok) {
+            return res.text().then(text => {
+              console.error('❌ Response error:', text);
+              throw new Error('Failed to fetch user: ' + res.status);
+            });
+          }
           return res.json();
         })
         .then(data => {
+          console.log('✅ User data received:', data);
           if (data.user) {
             // Save user data
             localStorage.setItem('user', JSON.stringify(data.user));
-            // Update auth context
-            window.location.href = '/';
+            console.log('✅ User saved to localStorage');
+            
+            // Check if user needs to complete profile
+            if (!data.user.phone || !data.user.address) {
+              console.log('📝 User needs to complete profile, redirecting...');
+              setTimeout(() => {
+                window.location.href = '/complete-profile?token=' + token;
+              }, 500);
+            } else {
+              console.log('✅ Profile complete, redirecting to home...');
+              setTimeout(() => {
+                window.location.href = '/';
+              }, 500);
+            }
           } else {
-            console.error('No user data received');
+            console.error('❌ No user data in response');
+            alert('No user data received');
             navigate('/login');
           }
         })
         .catch(error => {
-          console.error('Auth callback error:', error);
+          console.error('❌ Auth callback error:', error);
+          alert('Authentication error: ' + error.message);
           navigate('/login');
         });
     } else {
-      console.error('No token received');
+      console.error('❌ No token received in callback');
+      alert('No authentication token received');
       navigate('/login');
     }
   }, [searchParams, navigate]);

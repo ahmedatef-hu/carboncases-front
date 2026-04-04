@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiCreditCard, FiLock } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
@@ -13,8 +13,7 @@ const Checkout = () => {
     fullName: '',
     address: '',
     city: '',
-    state: '',
-    zipCode: '',
+    governorate: '',
     phone: ''
   });
 
@@ -22,13 +21,7 @@ const Checkout = () => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
   };
 
-  // Prevent admin from accessing checkout
-  useEffect(() => {
-    const isAdmin = !!localStorage.getItem('adminToken');
-    if (isAdmin) {
-      window.location.href = '/admin/dashboard';
-    }
-  }, []);
+  // No need to check for admin token here - ProtectedRoute already handles authentication
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,19 +29,42 @@ const Checkout = () => {
     setError('');
 
     try {
+      // Check if user is authenticated
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('Please login to place an order');
+        setLoading(false);
+        navigate('/login');
+        return;
+      }
+
       const orderData = {
         items: cart.map(item => ({
           productId: item.id,
-          quantity: item.quantity
+          quantity: item.quantity,
+          variant: item.variant || null
         })),
-        shippingAddress: `${shippingInfo.fullName}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state} ${shippingInfo.zipCode}`
+        shippingAddress: `${shippingInfo.fullName}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.governorate}, Phone: ${shippingInfo.phone}`
       };
 
-      await api.post('/orders', orderData);
+      console.log('Submitting order:', orderData);
+      console.log('API Base URL:', process.env.REACT_APP_API_URL);
+      
+      const response = await api.post('/orders', orderData);
+      console.log('Order response:', response.data);
+      
       clearCart();
+      alert('Order placed successfully!');
       navigate('/profile?tab=orders');
     } catch (error) {
-      setError(error.response?.data?.message || 'Order failed. Please try again.');
+      console.error('Order error:', error);
+      console.error('Error response:', error.response);
+      
+      if (error.code === 'ERR_NETWORK') {
+        setError('Cannot connect to server. Please make sure the backend is running.');
+      } else {
+        setError(error.response?.data?.message || 'Order failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -116,41 +132,56 @@ const Checkout = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">State</label>
-                      <input
-                        type="text"
-                        name="state"
-                        value={shippingInfo.state}
+                      <label className="block text-sm font-medium mb-2">Governorate</label>
+                      <select
+                        name="governorate"
+                        value={shippingInfo.governorate}
                         onChange={handleChange}
                         required
                         className="w-full bg-primary border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors"
-                      />
+                      >
+                        <option value="">Select Governorate</option>
+                        <option value="Cairo">Cairo</option>
+                        <option value="Giza">Giza</option>
+                        <option value="Alexandria">Alexandria</option>
+                        <option value="Dakahlia">Dakahlia</option>
+                        <option value="Red Sea">Red Sea</option>
+                        <option value="Beheira">Beheira</option>
+                        <option value="Fayoum">Fayoum</option>
+                        <option value="Gharbiya">Gharbiya</option>
+                        <option value="Ismailia">Ismailia</option>
+                        <option value="Menofia">Menofia</option>
+                        <option value="Minya">Minya</option>
+                        <option value="Qaliubiya">Qaliubiya</option>
+                        <option value="New Valley">New Valley</option>
+                        <option value="Suez">Suez</option>
+                        <option value="Aswan">Aswan</option>
+                        <option value="Assiut">Assiut</option>
+                        <option value="Beni Suef">Beni Suef</option>
+                        <option value="Port Said">Port Said</option>
+                        <option value="Damietta">Damietta</option>
+                        <option value="Sharkia">Sharkia</option>
+                        <option value="South Sinai">South Sinai</option>
+                        <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                        <option value="Matrouh">Matrouh</option>
+                        <option value="Luxor">Luxor</option>
+                        <option value="Qena">Qena</option>
+                        <option value="North Sinai">North Sinai</option>
+                        <option value="Sohag">Sohag</option>
+                      </select>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">ZIP Code</label>
-                      <input
-                        type="text"
-                        name="zipCode"
-                        value={shippingInfo.zipCode}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-primary border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Phone</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={shippingInfo.phone}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-primary border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Phone</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={shippingInfo.phone}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-primary border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors"
+                    />
                   </div>
                 </div>
               </div>
@@ -176,7 +207,7 @@ const Checkout = () => {
                 disabled={loading}
                 className="w-full bg-accent text-primary py-4 rounded-lg hover:bg-accent-hover transition-all transform hover:scale-105 font-semibold text-lg disabled:opacity-50"
               >
-                {loading ? 'Processing...' : `Place Order - $${getCartTotal().toFixed(2)}`}
+                {loading ? 'Processing...' : `Place Order - LE ${(getCartTotal() + 150).toFixed(2)}`}
               </button>
             </form>
           </div>
@@ -188,11 +219,22 @@ const Checkout = () => {
               
               <div className="space-y-4 mb-6">
                 {cart.map(item => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <span className="text-gray-400">
-                      {item.name} x {item.quantity}
-                    </span>
-                    <span className="font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
+                  <div key={`${item.id}-${item.variant || 'default'}`} className="flex justify-between text-sm">
+                    <div className="flex-1">
+                      <span className="text-gray-400">
+                        {item.name} x {item.quantity}
+                      </span>
+                      {item.variant && (
+                        <span className={`ml-2 text-xs px-2 py-0.5 rounded ${
+                          item.variant === 'with_magsafe' 
+                            ? 'bg-blue-500/20 text-blue-400' 
+                            : 'bg-orange-500/20 text-orange-400'
+                        }`}>
+                          {item.variant === 'with_magsafe' ? '⚡ With MagSafe' : 'Without MagSafe'}
+                        </span>
+                      )}
+                    </div>
+                    <span className="font-semibold">LE {(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
@@ -200,19 +242,19 @@ const Checkout = () => {
               <div className="border-t border-gray-800 pt-4 space-y-3">
                 <div className="flex justify-between text-gray-400">
                   <span>Subtotal</span>
-                  <span>${getCartTotal().toFixed(2)}</span>
+                  <span>LE {getCartTotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-400">
                   <span>Shipping</span>
-                  <span>Free</span>
+                  <span>LE 150.00</span>
                 </div>
                 <div className="flex justify-between text-gray-400">
                   <span>Tax</span>
-                  <span>${(getCartTotal() * 0.08).toFixed(2)}</span>
+                  <span>LE 0.00</span>
                 </div>
                 <div className="border-t border-gray-800 pt-3 flex justify-between text-xl font-bold">
                   <span>Total</span>
-                  <span className="text-accent">${(getCartTotal() * 1.08).toFixed(2)}</span>
+                  <span className="text-accent">LE {(getCartTotal() + 150).toFixed(2)}</span>
                 </div>
               </div>
             </div>

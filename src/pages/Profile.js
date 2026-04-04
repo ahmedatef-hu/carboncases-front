@@ -13,14 +13,6 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if logged in as admin
-    const adminToken = localStorage.getItem('adminToken');
-    if (adminToken) {
-      // Redirect admin to admin dashboard
-      window.location.href = '/admin/dashboard';
-      return;
-    }
-
     fetchProfile();
     if (activeTab === 'orders') {
       fetchOrders();
