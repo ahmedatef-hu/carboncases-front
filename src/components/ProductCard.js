@@ -123,19 +123,19 @@ const ProductCard = ({ product, onAddToWishlist }) => {
             {product.category === 'Phone Covers' && product.price_without_magsafe ? (
               <>
                 <span className="text-lg font-bold text-white">
-                  From LE {parseFloat(product.price_without_magsafe).toLocaleString()}
+                  From LE {(parseFloat(product.price_without_magsafe) || 0).toLocaleString()}
                 </span>
                 <span className="text-xs text-orange-400">
-                  With MagSafe: LE {parseFloat(product.price_with_magsafe).toLocaleString()}
+                  With MagSafe: LE {(parseFloat(product.price_with_magsafe) || 0).toLocaleString()}
                 </span>
               </>
             ) : (
               <>
                 <span className="text-2xl font-bold text-white">
-                  LE {parseFloat(product.price || 0).toLocaleString()}
+                  LE {(parseFloat(product.price) || 0).toLocaleString()}
                 </span>
                 <span className="text-sm text-gray-500 line-through">
-                  LE {(parseFloat(product.price || 0) * 1.2).toLocaleString()}
+                  LE {((parseFloat(product.price) || 0) * 1.2).toLocaleString()}
                 </span>
               </>
             )}
