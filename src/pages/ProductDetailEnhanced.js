@@ -254,7 +254,7 @@ const ProductDetailEnhanced = () => {
                 </div>
               ) : (
                 <div className="text-4xl font-bold text-white">
-                  LE {parseFloat(product.price).toLocaleString()}
+                  LE {parseFloat(product.price || 0).toLocaleString()}
                 </div>
               )}
             </div>

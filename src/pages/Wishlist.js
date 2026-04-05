@@ -154,10 +154,10 @@ const Wishlist = () => {
                 </Link>
                 <div className="flex items-center space-x-2">
                   <p className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500 font-bold text-2xl">
-                    LE {product.price.toLocaleString()}
+                    LE {parseFloat(product.price || 0).toLocaleString()}
                   </p>
                   <span className="text-sm text-white/40 line-through">
-                    LE {(product.price * 1.2).toLocaleString()}
+                    LE {(parseFloat(product.price || 0) * 1.2).toLocaleString()}
                   </span>
                 </div>
 
