@@ -209,7 +209,7 @@ const Checkout = () => {
                 disabled={loading}
                 className="w-full bg-accent text-primary py-4 rounded-lg hover:bg-accent-hover transition-all transform hover:scale-105 font-semibold text-lg disabled:opacity-50"
               >
-                {loading ? 'Processing...' : `Place Order - LE ${(getCartTotal() + 150).toFixed(2)}`}
+                {loading ? 'Processing...' : `Place Order - LE ${getCartTotal().toFixed(2)}`}
               </button>
             </form>
           </div>
@@ -248,7 +248,7 @@ const Checkout = () => {
                 </div>
                 <div className="flex justify-between text-gray-400">
                   <span>Shipping</span>
-                  <span>LE 150.00</span>
+                  <span>Free</span>
                 </div>
                 <div className="flex justify-between text-gray-400">
                   <span>Tax</span>
@@ -256,7 +256,7 @@ const Checkout = () => {
                 </div>
                 <div className="border-t border-gray-800 pt-3 flex justify-between text-xl font-bold">
                   <span>Total</span>
-                  <span className="text-accent">LE {(getCartTotal() + 150).toFixed(2)}</span>
+                  <span className="text-accent">LE {getCartTotal().toFixed(2)}</span>
                 </div>
               </div>
             </div>
