@@ -118,7 +118,7 @@ const ProductCard = ({ product, onAddToWishlist }) => {
         
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            {product.category === 'Phone Covers' && product.price_without_magsafe ? (
+            {product.has_magsafe_option && product.price_without_magsafe ? (
               <>
                 <span className="text-lg font-bold text-white">
                   From LE {(parseFloat(product.price_without_magsafe) || 0).toLocaleString()}
@@ -127,7 +127,7 @@ const ProductCard = ({ product, onAddToWishlist }) => {
                   With MagSafe: LE {(parseFloat(product.price_with_magsafe) || 0).toLocaleString()}
                 </span>
               </>
-            ) : (
+            ) : product.price ? (
               <>
                 <span className="text-2xl font-bold text-white">
                   LE {(parseFloat(product.price || 0)).toLocaleString()}
@@ -136,6 +136,10 @@ const ProductCard = ({ product, onAddToWishlist }) => {
                   LE {(parseFloat(product.price || 0) * 1.2).toLocaleString()}
                 </span>
               </>
+            ) : (
+              <span className="text-lg font-bold text-orange-400">
+                Price not available
+              </span>
             )}
           </div>
           
