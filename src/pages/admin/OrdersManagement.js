@@ -45,6 +45,8 @@ const OrdersManagement = () => {
     setLoadingDetails(true);
     try {
       const response = await api.get(`/admin/orders/${orderId}`);
+      console.log('📦 Order details received:', response.data);
+      console.log('📦 Order items:', response.data.items);
       setOrderDetails(response.data);
     } catch (error) {
       console.error('Error fetching order details:', error);
@@ -609,13 +611,13 @@ const OrdersManagement = () => {
                               </div>
                             )}
                             <p className="text-white/70 text-sm">Quantity: {item.quantity}</p>
-                            <p className="text-white/70 text-sm">Price: LE {parseFloat(item.price).toFixed(2)}</p>
+                            <p className="text-white/70 text-sm">Price: LE {parseFloat(item.price || 0).toFixed(2)}</p>
                           </div>
                           <div className="text-right">
                             <p className="text-orange-400 font-black text-xl" style={{
                               textShadow: '0 0 20px rgba(255, 107, 53, 0.4)'
                             }}>
-                              LE {(item.price * item.quantity).toFixed(2)}
+                              LE {((item.price || 0) * (item.quantity || 0)).toFixed(2)}
                             </p>
                           </div>
                         </div>
@@ -634,7 +636,7 @@ const OrdersManagement = () => {
                     <div className="flex justify-between text-white/70">
                       <span>Subtotal</span>
                       <span>LE {orderDetails && orderDetails.items ? 
-                        orderDetails.items.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0).toFixed(2) 
+                        orderDetails.items.reduce((sum, item) => sum + ((parseFloat(item.price) || 0) * (item.quantity || 0)), 0).toFixed(2) 
                         : parseFloat(selectedOrder.total_amount || selectedOrder.total_price || 0).toFixed(2)
                       }</span>
                     </div>
