@@ -23,7 +23,6 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    debugger; // This will pause execution
     console.log('🚀 Form submitted!');
     console.log('📝 Form data:', formData);
     
@@ -67,10 +66,10 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4 py-12 relative overflow-hidden">
-      {/* Floating Particles Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* Floating Particles Background - Reduced for mobile performance */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 hidden md:block">
         <div className="floating-particles">
-          {[...Array(40)].map((_, i) => (
+          {[...Array(20)].map((_, i) => (
             <div
               key={i}
               className="particle"
@@ -84,27 +83,26 @@ const AdminLogin = () => {
         </div>
       </div>
 
-      {/* Background Effects */}
+      {/* Background Effects - Simplified for mobile */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full blur-3xl animate-float" style={{animationDuration: '10s'}}></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-full blur-3xl animate-float" style={{animationDuration: '15s', animationDelay: '5s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-orange-500/5 to-red-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full blur-3xl md:animate-float"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-full blur-3xl md:animate-float" style={{animationDuration: '15s', animationDelay: '5s'}}></div>
       </div>
 
       <div className="max-w-md w-full relative z-10">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-orange-500 to-red-600 rounded-3xl mb-6 shadow-2xl relative group animate-float"
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-orange-500 to-red-600 rounded-3xl mb-6 shadow-2xl relative group md:animate-float"
             style={{
               boxShadow: '0 20px 60px rgba(255, 107, 53, 0.4), 0 0 80px rgba(255, 107, 53, 0.2)',
               animationDuration: '6s'
             }}
           >
             <FiShield size={48} className="text-white relative z-10" />
-            {/* Rotating Border */}
-            <div className="absolute inset-0 rounded-3xl border-2 border-orange-500/50 animate-spin-slow"></div>
-            {/* Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+            {/* Rotating Border - Disabled on mobile */}
+            <div className="absolute inset-0 rounded-3xl border-2 border-orange-500/50 hidden md:block md:animate-spin-slow"></div>
+            {/* Glow Effect - Simplified on mobile */}
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-3xl blur-xl"></div>
           </div>
           
           <h1 className="font-serif text-5xl md:text-6xl font-black text-white mb-3 animate-fade-in-up" style={{
@@ -127,9 +125,9 @@ const AdminLogin = () => {
         </div>
 
         {/* Login Form */}
-        <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl border-2 border-orange-500/30 relative overflow-hidden">
-          {/* Background Effects */}
-          <div className="absolute inset-0 pointer-events-none">
+        <div className="bg-gradient-to-br from-gray-900/80 to-black/80 md:backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl border-2 border-orange-500/30 relative overflow-hidden">
+          {/* Background Effects - Hidden on mobile for performance */}
+          <div className="absolute inset-0 pointer-events-none hidden md:block">
             <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-2xl"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-red-500/10 to-transparent rounded-full blur-2xl"></div>
           </div>
@@ -161,14 +159,11 @@ const AdminLogin = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 font-medium text-white placeholder-white/40 hover:border-orange-500/50"
+                  className="w-full bg-black/50 md:backdrop-blur-md border-2 border-orange-500/30 rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 font-medium text-white placeholder-white/40 hover:border-orange-500/50"
                   placeholder="admin@carboncases.com"
-                  style={{
-                    textShadow: '0 0 10px rgba(255, 107, 53, 0.3)'
-                  }}
                 />
-                {/* Glow Effect on Focus */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-500/0 to-red-500/0 group-focus-within:from-orange-500/10 group-focus-within:to-red-500/10 transition-all duration-300 pointer-events-none"></div>
+                {/* Glow Effect on Focus - Desktop only */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-500/0 to-red-500/0 group-focus-within:from-orange-500/10 group-focus-within:to-red-500/10 transition-all duration-300 pointer-events-none hidden md:block"></div>
               </div>
             </div>
 
@@ -189,21 +184,18 @@ const AdminLogin = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full bg-black/50 backdrop-blur-md border-2 border-orange-500/30 rounded-xl pl-12 pr-14 py-4 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 font-medium text-white placeholder-white/40 hover:border-orange-500/50"
+                  className="w-full bg-black/50 md:backdrop-blur-md border-2 border-orange-500/30 rounded-xl pl-12 pr-14 py-4 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 font-medium text-white placeholder-white/40 hover:border-orange-500/50"
                   placeholder="••••••••"
-                  style={{
-                    textShadow: '0 0 10px rgba(255, 107, 53, 0.3)'
-                  }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-orange-500/70 hover:text-orange-500 transition-all duration-300 z-10 hover:scale-110"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-orange-500/70 hover:text-orange-500 transition-all duration-300 z-10 md:hover:scale-110"
                 >
                   {showPassword ? <FiEyeOff className="h-5 w-5" /> : <FiEye className="h-5 w-5" />}
                 </button>
-                {/* Glow Effect on Focus */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-500/0 to-red-500/0 group-focus-within:from-orange-500/10 group-focus-within:to-red-500/10 transition-all duration-300 pointer-events-none"></div>
+                {/* Glow Effect on Focus - Desktop only */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-500/0 to-red-500/0 group-focus-within:from-orange-500/10 group-focus-within:to-red-500/10 transition-all duration-300 pointer-events-none hidden md:block"></div>
               </div>
             </div>
 
@@ -232,9 +224,9 @@ const AdminLogin = () => {
           </form>
 
           {/* Security Notice */}
-          <div className="mt-8 p-5 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-sm rounded-xl border-2 border-yellow-500/30 relative overflow-hidden">
-            {/* Background Glow */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 rounded-full blur-xl"></div>
+          <div className="mt-8 p-5 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 md:backdrop-blur-sm rounded-xl border-2 border-yellow-500/30 relative overflow-hidden">
+            {/* Background Glow - Desktop only */}
+            <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 rounded-full blur-xl hidden md:block"></div>
             
             <div className="flex items-center space-x-3 text-yellow-400 mb-3 relative z-10">
               <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
