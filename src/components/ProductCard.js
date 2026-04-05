@@ -130,10 +130,10 @@ const ProductCard = ({ product, onAddToWishlist }) => {
             ) : (
               <>
                 <span className="text-2xl font-bold text-white">
-                  LE {(parseFloat(product.price) || 0).toLocaleString()}
+                  LE {(parseFloat(product.price || 0)).toLocaleString()}
                 </span>
                 <span className="text-sm text-gray-500 line-through">
-                  LE {((parseFloat(product.price) || 0) * 1.2).toLocaleString()}
+                  LE {(parseFloat(product.price || 0) * 1.2).toLocaleString()}
                 </span>
               </>
             )}
