@@ -594,6 +594,20 @@ const OrdersManagement = () => {
                                 </span>
                               </div>
                             )}
+                            {(item.selected_color || item.selected_model) && (
+                              <div className="mt-2 space-y-1">
+                                {item.selected_color && (
+                                  <p className="text-white/70 text-sm">
+                                    <span className="text-orange-400">Color:</span> {item.selected_color}
+                                  </p>
+                                )}
+                                {item.selected_model && (
+                                  <p className="text-white/70 text-sm">
+                                    <span className="text-orange-400">Model:</span> {item.selected_model}
+                                  </p>
+                                )}
+                              </div>
+                            )}
                             <p className="text-white/70 text-sm">Quantity: {item.quantity}</p>
                             <p className="text-white/70 text-sm">Price: LE {parseFloat(item.price).toFixed(2)}</p>
                           </div>

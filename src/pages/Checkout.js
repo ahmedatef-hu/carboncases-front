@@ -42,7 +42,9 @@ const Checkout = () => {
         items: cart.map(item => ({
           productId: item.id,
           quantity: item.quantity,
-          variant: item.variant ? item.variant.replace(/-/g, '_') : null // Convert hyphen to underscore
+          variant: item.variant ? item.variant.replace(/-/g, '_') : null, // Convert hyphen to underscore
+          selectedColor: item.selectedColor || null,
+          selectedModel: item.selectedModel || null
         })),
         shippingAddress: `${shippingInfo.fullName}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.governorate}, Phone: ${shippingInfo.phone}`
       };
