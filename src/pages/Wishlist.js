@@ -34,6 +34,11 @@ const Wishlist = () => {
   };
 
   const handleAddToCart = (product) => {
+    // If product has MagSafe options, redirect to product page to select variant
+    if (product.has_magsafe_option) {
+      navigate(`/products/${product.id}`);
+      return;
+    }
     addToCart(product);
   };
 
@@ -181,14 +186,13 @@ const Wishlist = () => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleAddToCart(product)}
-                    disabled={product.stock === 0}
-                    className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-3 rounded-lg hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-bold flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl transform hover:scale-105"
+                    className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-3 rounded-lg hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-bold flex items-center justify-center space-x-2 shadow-xl transform hover:scale-105"
                     style={{
                       boxShadow: '0 8px 20px rgba(255, 107, 53, 0.3)'
                     }}
                   >
                     <FiShoppingCart size={18} />
-                    <span>Add to Cart</span>
+                    <span>{product.has_magsafe_option ? 'Select Options' : 'Add to Cart'}</span>
                   </button>
                   <button
                     onClick={() => handleRemove(product.id)}
