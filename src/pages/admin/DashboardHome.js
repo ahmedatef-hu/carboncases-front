@@ -12,10 +12,24 @@ const DashboardHome = () => {
 
   const fetchStats = async () => {
     try {
+      console.log('📊 Fetching dashboard stats...');
       const response = await api.get('/admin/stats');
+      console.log('✅ Stats received:', response.data);
       setStats(response.data);
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error('❌ Error fetching stats:', error);
+      console.error('❌ Error response:', error.response?.data);
+      console.error('❌ Error status:', error.response?.status);
+      
+      // Set empty stats to show "No data" messages
+      setStats({
+        totalSales: 0,
+        totalOrders: 0,
+        totalUsers: 0,
+        topProducts: [],
+        lowStock: [],
+        recentOrders: []
+      });
     } finally {
       setLoading(false);
     }
