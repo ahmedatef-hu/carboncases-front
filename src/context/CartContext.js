@@ -45,19 +45,19 @@ export const CartProvider = ({ children }) => {
   const addToCart = (product, quantity = 1) => {
     console.log('➕ Adding to cart:', { product, quantity });
     setCart(prevCart => {
-      // Create unique key based on product id and variant
-      const itemKey = product.variant ? `${product.id}-${product.variant}` : product.id;
+      // Create unique key based on product id, variant, color, and model
+      const itemKey = `${product.id}-${product.variant || 'default'}-${product.selectedColor || ''}-${product.selectedModel || ''}`;
       console.log('🔑 Item key:', itemKey);
       
       const existingItem = prevCart.find(item => {
-        const existingKey = item.variant ? `${item.id}-${item.variant}` : item.id;
+        const existingKey = `${item.id}-${item.variant || 'default'}-${item.selectedColor || ''}-${item.selectedModel || ''}`;
         return existingKey === itemKey;
       });
       
       if (existingItem) {
         console.log('✅ Item exists, updating quantity');
         return prevCart.map(item => {
-          const existingKey = item.variant ? `${item.id}-${item.variant}` : item.id;
+          const existingKey = `${item.id}-${item.variant || 'default'}-${item.selectedColor || ''}-${item.selectedModel || ''}`;
           return existingKey === itemKey
             ? { ...item, quantity: item.quantity + quantity }
             : item;
@@ -65,7 +65,16 @@ export const CartProvider = ({ children }) => {
       }
       
       console.log('✅ New item, adding to cart');
-      const newCart = [...prevCart, { ...product, quantity, cartItemId: itemKey }];
+      // Store magsafe_option for backend compatibility
+      const magsafe_option = product.variant === 'with-magsafe' ? true : 
+                            product.variant === 'without-magsafe' ? false : null;
+      
+      const newCart = [...prevCart, { 
+        ...product, 
+        quantity, 
+        cartItemId: itemKey,
+        magsafe_option // Add for backend
+      }];
       console.log('📦 New cart state:', newCart);
       return newCart;
     });

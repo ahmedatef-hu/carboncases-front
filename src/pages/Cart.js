@@ -135,17 +135,32 @@ const Cart = () => {
                         {item.name}
                       </h3>
                     </Link>
-                    {item.variant && (
-                      <div className="mb-2">
-                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
-                          item.variant === 'with_magsafe' 
-                            ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-400 border border-blue-500/30' 
-                            : 'bg-gradient-to-r from-gray-700/20 to-gray-800/20 text-gray-400 border border-gray-600/30'
-                        }`}>
-                          {item.variant === 'with_magsafe' ? '⚡ With MagSafe' : 'Without MagSafe'}
-                        </span>
-                      </div>
-                    )}
+                    
+                    {/* Display selected options */}
+                    <div className="mb-2 space-y-1">
+                      {item.selectedColor && (
+                        <div className="text-sm text-white/60">
+                          Color: <span className="text-white/80">{item.selectedColor}</span>
+                        </div>
+                      )}
+                      {item.selectedModel && (
+                        <div className="text-sm text-white/60">
+                          Model: <span className="text-white/80">{item.selectedModel}</span>
+                        </div>
+                      )}
+                      {item.variant && (
+                        <div>
+                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                            item.variant === 'with-magsafe' 
+                              ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-400 border border-blue-500/30' 
+                              : 'bg-gradient-to-r from-gray-700/20 to-gray-800/20 text-gray-400 border border-gray-600/30'
+                          }`}>
+                            {item.variant === 'with-magsafe' ? '⚡ With MagSafe' : 'Without MagSafe'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    
                     <p className="text-3xl font-black text-white mb-6" style={{textShadow: '0 0 20px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(item.price).toLocaleString()}</p>
 
                     <div className="flex items-center justify-between">

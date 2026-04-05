@@ -40,9 +40,17 @@ const ProductsManagement = () => {
     }
   };
 
-  const handleEdit = (product) => {
-    setEditingProduct(product);
-    setShowForm(true);
+  const handleEdit = async (product) => {
+    try {
+      // Fetch full product details with images, colors, models
+      // Add timestamp to prevent caching
+      const response = await api.get(`/admin/products/enhanced/${product.id}?t=${Date.now()}`);
+      setEditingProduct(response.data);
+      setShowForm(true);
+    } catch (error) {
+      console.error('Error fetching product details:', error);
+      alert('Failed to load product details');
+    }
   };
 
   const filteredProducts = products.filter(product =>

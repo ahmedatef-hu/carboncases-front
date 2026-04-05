@@ -102,6 +102,8 @@ const Products = () => {
   const sort = searchParams.get('sort') || '';
 
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchProducts = async () => {
       setLoading(true);
       try {
@@ -109,30 +111,34 @@ const Products = () => {
         if (category) params.category = category;
         if (sort) params.sort = sort;
 
-        console.log('Fetching products with params:', params); // Debug log
         const response = await api.get('/products', { params });
-        console.log('Products fetched:', response.data.length, 'products'); // Debug log
-        setProducts(response.data);
+        
+        if (isMounted) {
+          setProducts(response.data);
+        }
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchProducts();
+    
+    return () => {
+      isMounted = false;
+    };
   }, [category, sort]);
 
   const handleFilterChange = (key, value) => {
-    console.log(`Filter changed: ${key} = ${value}`); // Debug log
-    console.log('Current searchParams:', Object.fromEntries(searchParams.entries())); // Debug log
     const newParams = new URLSearchParams(searchParams);
     if (value) {
       newParams.set(key, value);
     } else {
       newParams.delete(key);
     }
-    console.log('New searchParams:', Object.fromEntries(newParams.entries())); // Debug log
     setSearchParams(newParams);
   };
 

@@ -339,7 +339,8 @@ const ProductDetail = () => {
             <div className="flex space-x-4">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-4 rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 transform hover:scale-105 font-bold text-lg flex items-center justify-center space-x-3 shadow-xl relative overflow-hidden group"
+                disabled={product.stock === 0}
+                className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-4 rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 transform hover:scale-105 font-bold text-lg flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-xl relative overflow-hidden group"
                 style={{
                   boxShadow: '0 10px 30px rgba(255, 107, 53, 0.4)'
                 }}
@@ -353,7 +354,7 @@ const ProductDetail = () => {
                 ) : (
                   <>
                     <FiShoppingCart size={24} className="relative z-10" />
-                    <span className="relative z-10">Add to Cart</span>
+                    <span className="relative z-10">{product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}</span>
                   </>
                 )}
               </button>
