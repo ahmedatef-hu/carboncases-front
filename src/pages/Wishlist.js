@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiHeart, FiShoppingCart, FiTrash2 } from 'react-icons/fi';
 import api from '../utils/api';
 import { useCart } from '../context/CartContext';
@@ -8,6 +8,7 @@ const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchWishlist();
