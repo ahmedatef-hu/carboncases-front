@@ -144,10 +144,13 @@ const ProductCard = ({ product, onAddToWishlist }) => {
           </div>
           
           <button
-            onClick={handleAddToCart}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/products/${product.id}`);
+            }}
             disabled={(product.stock_quantity || 0) === 0}
             className="bg-gradient-to-r from-orange-500 to-red-600 text-white p-3 rounded-full hover:from-red-600 hover:to-orange-500 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-glow-orange transform hover:scale-110"
-            title={(product.stock_quantity || 0) === 0 ? 'Sold Out' : 'Add to Cart'}
+            title={(product.stock_quantity || 0) === 0 ? 'Sold Out' : 'View Details'}
           >
             <FiShoppingCart size={20} />
           </button>
