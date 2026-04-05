@@ -153,12 +153,29 @@ const Wishlist = () => {
                   </h3>
                 </Link>
                 <div className="flex items-center space-x-2">
-                  <p className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500 font-bold text-2xl">
-                    LE {parseFloat(product.price || 0).toLocaleString()}
-                  </p>
-                  <span className="text-sm text-white/40 line-through">
-                    LE {(parseFloat(product.price || 0) * 1.2).toLocaleString()}
-                  </span>
+                  {product.has_magsafe_option && product.price_without_magsafe ? (
+                    <div className="flex flex-col">
+                      <p className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500 font-bold text-lg">
+                        From LE {parseFloat(product.price_without_magsafe || 0).toLocaleString()}
+                      </p>
+                      <span className="text-xs text-orange-400">
+                        With MagSafe: LE {parseFloat(product.price_with_magsafe || 0).toLocaleString()}
+                      </span>
+                    </div>
+                  ) : product.price ? (
+                    <>
+                      <p className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500 font-bold text-2xl">
+                        LE {parseFloat(product.price || 0).toLocaleString()}
+                      </p>
+                      <span className="text-sm text-white/40 line-through">
+                        LE {(parseFloat(product.price || 0) * 1.2).toLocaleString()}
+                      </span>
+                    </>
+                  ) : (
+                    <p className="text-orange-400 font-bold text-lg">
+                      Price not available
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex space-x-2">
