@@ -145,12 +145,6 @@ const Home = () => {
             {/* Center Content */}
             <div className="text-center space-y-8 max-w-4xl">
               
-              {/* Premium Badge */}
-              <div className="inline-flex items-center space-x-3 bg-black/40 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 text-sm font-medium tracking-wider">
-                <div className="w-2 h-2 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-pulse"></div>
-                <span className="text-white/90 uppercase text-xs font-semibold">Premium Collection 2026</span>
-              </div>
-              
               {/* Main Title */}
               <div className="space-y-4">
                 <h1 className="font-serif font-black leading-none">
