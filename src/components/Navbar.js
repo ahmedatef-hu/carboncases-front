@@ -119,7 +119,7 @@ const Navbar = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <img 
                   src="/logo.PNG" 
-                  alt="Carbon Cases Logo" 
+                  alt="Carbon Case Logo" 
                   className="h-14 w-auto object-contain relative z-10 transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

@@ -146,7 +146,7 @@ const AdminDashboard = () => {
               </div>
               <div>
                 <h2 className="font-bold text-white text-base lg:text-lg" style={{textShadow: '0 0 20px rgba(255, 107, 53, 0.3)'}}>Admin Panel</h2>
-                <p className="text-xs text-orange-400">Carbon Cases</p>
+                <p className="text-xs text-orange-400">Carbon Case</p>
               </div>
             </div>
             <div className="bg-gradient-to-br from-gray-800/80 to-black/80 backdrop-blur-sm rounded-xl p-3 border border-orange-500/20 relative overflow-hidden">
@@ -213,7 +213,7 @@ const AdminDashboard = () => {
               </div>
               <div>
                 <h2 className="font-bold text-white text-sm" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>Admin Panel</h2>
-                <p className="text-xs text-orange-400">Carbon Cases</p>
+                <p className="text-xs text-orange-400">Carbon Case</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">

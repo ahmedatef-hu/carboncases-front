@@ -37,7 +37,7 @@ const Footer = () => {
               <h3 className="font-serif text-3xl font-black mb-4 text-white" style={{
                 textShadow: '0 0 30px rgba(255, 107, 53, 0.5)'
               }}>
-                CARBON CASES
+                CARBON CASE
               </h3>
               <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mb-6 animate-pulse-glow"></div>
             </div>
@@ -136,7 +136,7 @@ const Footer = () => {
           
           <div className="pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-500 text-sm">
-              &copy; 2024 <span className="text-orange-400 font-semibold">Carbon Cases</span>. All rights reserved.
+              &copy; 2026 <span className="text-orange-400 font-semibold">Carbon Case</span>. All rights reserved.
             </p>
             
             {/* Payment Methods */}

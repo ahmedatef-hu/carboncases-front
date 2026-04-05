@@ -112,7 +112,7 @@ const Register = () => {
           }}>
             <img 
               src="/logo.PNG" 
-              alt="Carbon Cases" 
+              alt="Carbon Case" 
               className="w-12 h-12 object-contain"
             />
           </div>
@@ -122,7 +122,7 @@ const Register = () => {
             {showVerification ? 'Verify Your Email' : 'Create Account'}
           </h1>
           <p className="text-xl text-white/70 font-light">
-            {showVerification ? 'Enter the code sent to your email' : 'Join the Carbon Cases family'}
+            {showVerification ? 'Enter the code sent to your email' : 'Join the Carbon Case family'}
           </p>
         </div>
 

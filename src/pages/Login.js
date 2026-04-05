@@ -46,14 +46,14 @@ const Login = () => {
           }}>
             <img 
               src="/logo.PNG" 
-              alt="Carbon Cases" 
+              alt="Carbon Case" 
               className="w-12 h-12 object-contain"
             />
           </div>
           <h1 className="font-serif text-4xl md:text-5xl font-black text-white mb-3" style={{
             textShadow: '0 0 40px rgba(255, 107, 53, 0.4)'
           }}>Welcome Back</h1>
-          <p className="text-xl text-white/70 font-light">Sign in to your Carbon Cases account</p>
+          <p className="text-xl text-white/70 font-light">Sign in to your Carbon Case account</p>
         </div>
 
         {/* Login Form */}
