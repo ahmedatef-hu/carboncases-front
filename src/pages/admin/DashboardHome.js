@@ -81,20 +81,20 @@ const DashboardHome = () => {
   ];
 
   return (
-    <div className="space-y-2.5 sm:space-y-4 lg:space-y-8">
+    <div className="space-y-2 sm:space-y-4 lg:space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-1.5 sm:space-y-0">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-1 sm:space-y-0">
         <div>
-          <h1 className="font-serif text-base sm:text-xl lg:text-4xl font-black text-white mb-0.5 sm:mb-1" style={{
+          <h1 className="font-serif text-sm sm:text-base lg:text-4xl font-black text-white mb-0.5" style={{
             textShadow: '0 0 40px rgba(255, 107, 53, 0.4)'
           }}>Dashboard</h1>
           <p className="text-white/70 text-xs lg:text-lg hidden sm:block">Welcome back! Here's what's happening with your store today.</p>
-          <p className="text-white/70 text-xs sm:hidden">Store overview</p>
+          <p className="text-white/70 text-xs sm:hidden">Overview</p>
         </div>
-        <div className="flex items-center space-x-1 sm:space-x-1.5 bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-xl border border-green-500/30 rounded-md sm:rounded-lg px-1.5 sm:px-2 py-1 shadow-sm self-start sm:self-auto" style={{
+        <div className="flex items-center space-x-1 bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-xl border border-green-500/30 rounded-md px-1.5 py-0.5 sm:py-1 shadow-sm self-start" style={{
           boxShadow: '0 0 20px rgba(34, 197, 94, 0.2)'
         }}>
-          <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" style={{
+          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-500 rounded-full animate-pulse" style={{
             boxShadow: '0 0 10px rgba(34, 197, 94, 0.6)'
           }}></div>
           <span className="text-xs font-medium text-green-400">Live</span>
@@ -102,12 +102,12 @@ const DashboardHome = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5 sm:gap-3 lg:gap-6">
         {statCards.map((stat, index) => {
           const Icon = stat.icon;
           const ChangeIcon = stat.changeType === 'up' ? FiArrowUp : FiArrowDown;
           return (
-            <div key={index} className={`bg-gradient-to-br ${stat.bgColor} backdrop-blur-xl rounded-lg lg:rounded-2xl p-2.5 sm:p-4 lg:p-6 border-2 ${stat.borderColor} hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden group`}
+            <div key={index} className={`bg-gradient-to-br ${stat.bgColor} backdrop-blur-xl rounded-md sm:rounded-lg lg:rounded-2xl p-2 sm:p-4 lg:p-6 border ${stat.borderColor} hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden group`}
               style={{
                 boxShadow: `0 10px 40px ${stat.glowColor}`
               }}
@@ -115,19 +115,19 @@ const DashboardHome = () => {
               {/* Background Glow */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
               
-              <div className="flex items-center justify-between mb-1.5 sm:mb-2 lg:mb-4 relative z-10">
-                <div className={`bg-gradient-to-br ${stat.bgColor} backdrop-blur-sm p-1.5 sm:p-2 lg:p-4 rounded-md sm:rounded-lg lg:rounded-xl border ${stat.borderColor}`}>
-                  <Icon className={`${stat.color} w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7`} />
+              <div className="flex items-center justify-between mb-1 sm:mb-2 lg:mb-4 relative z-10">
+                <div className={`bg-gradient-to-br ${stat.bgColor} backdrop-blur-sm p-1 sm:p-2 lg:p-4 rounded-sm sm:rounded-md lg:rounded-xl border ${stat.borderColor}`}>
+                  <Icon className={`${stat.color} w-3.5 h-3.5 sm:w-5 sm:h-5 lg:w-7 lg:h-7`} />
                 </div>
-                <div className={`flex items-center space-x-0.5 sm:space-x-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-semibold ${
+                <div className={`flex items-center space-x-0.5 px-1 sm:px-2 py-0.5 rounded-full text-xs font-semibold ${
                   stat.changeType === 'up' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'
                 }`}>
-                  <ChangeIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                  <ChangeIcon className="w-2 h-2 sm:w-3 sm:h-3" />
                   <span className="text-xs">{stat.change}</span>
                 </div>
               </div>
-              <h3 className="text-white/60 text-xs font-semibold uppercase tracking-wide mb-0.5 sm:mb-1 relative z-10">{stat.title}</h3>
-              <p className="text-base sm:text-lg lg:text-3xl font-black text-white relative z-10 break-words" style={{
+              <h3 className="text-white/60 text-xs font-semibold uppercase tracking-wide mb-0.5 relative z-10 truncate">{stat.title}</h3>
+              <p className="text-sm sm:text-base lg:text-3xl font-black text-white relative z-10 break-words" style={{
                 textShadow: `0 0 20px ${stat.glowColor}`
               }}>{stat.value}</p>
             </div>
@@ -136,26 +136,26 @@ const DashboardHome = () => {
       </div>
 
       {/* Top Selling Products */}
-      <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-lg lg:rounded-2xl p-2 sm:p-4 lg:p-8 border border-orange-500/20 shadow-lg relative overflow-hidden" style={{
+      <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-md sm:rounded-lg lg:rounded-2xl p-1.5 sm:p-4 lg:p-8 border border-orange-500/20 shadow-lg relative overflow-hidden" style={{
           boxShadow: '0 20px 60px rgba(255, 107, 53, 0.2)'
         }}>
           {/* Background Effects */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-2xl"></div>
           
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 sm:mb-4 lg:mb-8 space-y-1.5 sm:space-y-0 relative z-10">
-            <h2 className="font-serif text-sm sm:text-base lg:text-2xl font-black text-white flex items-center">
-              <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-10 lg:h-10 bg-gradient-to-br from-orange-500/20 to-red-600/20 backdrop-blur-sm rounded-md sm:rounded-lg lg:rounded-xl flex items-center justify-center mr-1 sm:mr-1.5 border border-orange-500/30">
-                <FiTrendingUp className="text-orange-400 w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-5 lg:h-5" />
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1.5 sm:mb-4 lg:mb-8 space-y-1 sm:space-y-0 relative z-10">
+            <h2 className="font-serif text-xs sm:text-base lg:text-2xl font-black text-white flex items-center">
+              <div className="w-4 h-4 sm:w-6 sm:h-6 lg:w-10 lg:h-10 bg-gradient-to-br from-orange-500/20 to-red-600/20 backdrop-blur-sm rounded-sm sm:rounded-md lg:rounded-xl flex items-center justify-center mr-1 border border-orange-500/30">
+                <FiTrendingUp className="text-orange-400 w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 lg:w-5 lg:h-5" />
               </div>
               <span style={{textShadow: '0 0 20px rgba(255, 107, 53, 0.3)'}}>Top Products</span>
             </h2>
-            <button className="flex items-center space-x-1 text-white/60 hover:text-white transition-colors self-start sm:self-auto group">
+            <button className="flex items-center space-x-0.5 sm:space-x-1 text-white/60 hover:text-white transition-colors self-start group">
               <FiEye className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium">View All</span>
+              <span className="text-xs font-medium">All</span>
             </button>
           </div>
           
-          <div className="space-y-1.5 lg:space-y-4 relative z-10">
+          <div className="space-y-1 sm:space-y-1.5 lg:space-y-4 relative z-10">
             {stats?.topProducts?.length === 0 ? (
               <div className="text-center py-6 sm:py-8 lg:py-12">
                 <FiPackage className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-white/20 mx-auto mb-2 sm:mb-3 lg:mb-4" />
@@ -163,18 +163,18 @@ const DashboardHome = () => {
               </div>
             ) : (
               stats?.topProducts?.map((product, index) => (
-                <div key={product.id} className="flex items-center gap-0.5 sm:gap-1 lg:gap-4 p-1.5 lg:p-4 bg-gradient-to-r from-gray-800/50 to-black/50 backdrop-blur-sm rounded-md sm:rounded-lg lg:rounded-xl hover:from-gray-800/70 hover:to-black/70 transition-all duration-300 border border-white/5 group">
-                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 lg:w-12 lg:h-12 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-sm sm:rounded-md lg:rounded-xl flex items-center justify-center font-bold text-xs lg:text-lg group-hover:scale-110 transition-transform" style={{
+                <div key={product.id} className="flex items-center gap-0.5 lg:gap-4 p-1 sm:p-1.5 lg:p-4 bg-gradient-to-r from-gray-800/50 to-black/50 backdrop-blur-sm rounded-sm sm:rounded-md lg:rounded-xl hover:from-gray-800/70 hover:to-black/70 transition-all duration-300 border border-white/5 group">
+                  <div className="flex-shrink-0 w-3.5 h-3.5 sm:w-5 sm:h-5 lg:w-12 lg:h-12 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-sm lg:rounded-xl flex items-center justify-center font-bold text-xs lg:text-lg group-hover:scale-110 transition-transform" style={{
                     boxShadow: '0 8px 20px rgba(255, 107, 53, 0.3)'
                   }}>
                     {index + 1}
                   </div>
-                  <img src={product.image_url} alt={product.name} className="w-7 h-7 sm:w-8 sm:h-8 lg:w-16 lg:h-16 object-cover rounded-sm sm:rounded-md lg:rounded-xl border border-orange-500/20 group-hover:border-orange-500/40 transition-colors flex-shrink-0" />
+                  <img src={product.image_url} alt={product.name} className="w-6 h-6 sm:w-8 sm:h-8 lg:w-16 lg:h-16 object-cover rounded-sm lg:rounded-xl border border-orange-500/20 group-hover:border-orange-500/40 transition-colors flex-shrink-0" />
                   <div className="flex-grow min-w-0 px-0.5">
                     <h3 className="font-bold text-white text-xs lg:text-base truncate leading-tight">{product.name}</h3>
-                    <p className="text-xs text-white/60 font-medium leading-tight">{product.total_sold} sold</p>
+                    <p className="text-xs text-white/60 font-medium leading-tight hidden sm:block">{product.total_sold} sold</p>
                   </div>
-                  <div className="text-right flex-shrink-0 min-w-[50px] sm:min-w-[60px]">
+                  <div className="text-right flex-shrink-0 min-w-[45px] sm:min-w-[60px]">
                     <p className="font-black text-xs lg:text-xl text-white whitespace-nowrap leading-tight" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(product.revenue).toLocaleString()}</p>
                   </div>
                 </div>
@@ -184,27 +184,27 @@ const DashboardHome = () => {
         </div>
 
       {/* Recent Orders */}
-      <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-lg sm:rounded-xl lg:rounded-2xl p-2.5 sm:p-4 lg:p-8 border border-blue-500/20 shadow-lg relative overflow-hidden" style={{
+      <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-md sm:rounded-lg lg:rounded-2xl p-1.5 sm:p-4 lg:p-8 border border-blue-500/20 shadow-lg relative overflow-hidden" style={{
         boxShadow: '0 20px 60px rgba(59, 130, 246, 0.2)'
       }}>
         {/* Background Effects */}
         <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-2xl"></div>
         
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 lg:mb-8 space-y-2 sm:space-y-0 relative z-10">
-          <h2 className="font-serif text-base sm:text-lg lg:text-2xl font-black text-white flex items-center">
-            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-10 lg:h-10 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-lg lg:rounded-xl flex items-center justify-center mr-1.5 sm:mr-2 border border-blue-500/30">
-              <FiShoppingBag className="text-blue-400 w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1.5 sm:mb-4 lg:mb-8 space-y-1 sm:space-y-0 relative z-10">
+          <h2 className="font-serif text-xs sm:text-base lg:text-2xl font-black text-white flex items-center">
+            <div className="w-4 h-4 sm:w-6 sm:h-6 lg:w-10 lg:h-10 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-sm sm:rounded-md lg:rounded-xl flex items-center justify-center mr-1 border border-blue-500/30">
+              <FiShoppingBag className="text-blue-400 w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 lg:w-5 lg:h-5" />
             </div>
-            <span style={{textShadow: '0 0 20px rgba(59, 130, 246, 0.3)'}}>Recent Orders</span>
+            <span style={{textShadow: '0 0 20px rgba(59, 130, 246, 0.3)'}}>Orders</span>
           </h2>
-          <button className="flex items-center space-x-1.5 text-white/60 hover:text-white transition-colors self-start sm:self-auto group">
-            <FiEye className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:scale-110 transition-transform" />
-            <span className="text-xs font-medium">View All</span>
+          <button className="flex items-center space-x-0.5 sm:space-x-1 text-white/60 hover:text-white transition-colors self-start group">
+            <FiEye className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-medium">All</span>
           </button>
         </div>
         
         {/* Mobile Cards View */}
-        <div className="block sm:hidden space-y-2 sm:space-y-3 relative z-10">
+        <div className="block sm:hidden space-y-1.5 relative z-10">
           {stats?.recentOrders?.length === 0 ? (
             <div className="text-center py-8 sm:py-12">
               <FiShoppingBag className="w-12 h-12 sm:w-16 sm:h-16 text-white/20 mx-auto mb-3 sm:mb-4" />
