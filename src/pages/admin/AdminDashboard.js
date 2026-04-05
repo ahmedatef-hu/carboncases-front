@@ -264,7 +264,7 @@ const AdminDashboard = () => {
 
         {/* Main Content */}
         <main className="flex-1 bg-black min-h-screen relative">
-          <div className="p-3 sm:p-6 lg:p-8 pt-20 pb-20 md:pt-8 md:pb-8 relative z-10">
+          <div className="p-2 sm:p-6 lg:p-8 pt-20 pb-20 md:pt-8 md:pb-8 relative z-10">
             <Routes>
               <Route path="/dashboard" element={<DashboardHome />} />
               <Route path="/products" element={<ProductsManagement />} />
