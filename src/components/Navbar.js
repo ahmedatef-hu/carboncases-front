@@ -69,8 +69,18 @@ const Navbar = () => {
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex items-center h-20 lg:justify-between">
             
+            {/* Mobile Left - Menu Button with Glow */}
+            <div className="lg:hidden flex-shrink-0">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="icon-glow-hover text-white hover:text-orange-500 transition-all duration-500 p-2 rounded-lg hover:bg-orange-500/10"
+              >
+                {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              </button>
+            </div>
+
             {/* Desktop Left Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               <Link to="/" className={`nav-link-glow group relative transition-all duration-500 font-medium uppercase tracking-wide text-sm ${
@@ -102,18 +112,8 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* Mobile Left - Menu Button with Glow */}
-            <div className="lg:hidden">
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="icon-glow-hover text-white hover:text-orange-500 transition-all duration-500 p-2 rounded-lg hover:bg-orange-500/10"
-              >
-                {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-              </button>
-            </div>
-
-            {/* Logo - Center on mobile, left-center on desktop with Glow */}
-            <Link to="/" className="flex items-center justify-center lg:justify-start group">
+            {/* Logo - Centered on mobile, left-center on desktop with Glow */}
+            <Link to="/" className="absolute left-1/2 transform -translate-x-1/2 lg:relative lg:left-auto lg:transform-none flex items-center justify-center group">
               <div className="relative">
                 {/* Logo Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -126,7 +126,7 @@ const Navbar = () => {
             </Link>
 
             {/* Right Navigation with Enhanced Icons */}
-            <div className="flex items-center space-x-4 lg:space-x-6">
+            <div className="flex items-center space-x-4 lg:space-x-6 ml-auto lg:ml-0">
               {/* Search - Desktop only with Glow */}
               <button className="icon-glow-hover hidden lg:block text-white hover:text-orange-500 transition-all duration-500 p-2 rounded-lg hover:bg-orange-500/10">
                 <FiSearch size={20} />
