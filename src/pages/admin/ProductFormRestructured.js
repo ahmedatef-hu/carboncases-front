@@ -10,6 +10,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
     name: '',
     description: '',
     category: 'Phone Covers',
+    has_magsafe_option: false,
     price_without_magsafe: '',
     price_with_magsafe: '',
     price: '',
@@ -48,6 +49,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
         name: existingProduct.name || '',
         description: existingProduct.description || '',
         category: existingProduct.category || 'Phone Covers',
+        has_magsafe_option: existingProduct.has_magsafe_option || false,
         price_without_magsafe: existingProduct.price_without_magsafe || '',
         price_with_magsafe: existingProduct.price_with_magsafe || '',
         price: existingProduct.price || '',
@@ -152,9 +154,14 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
       return;
     }
 
-    if (formData.category === 'Phone Covers') {
+    if (formData.category === 'Phone Covers' && formData.has_magsafe_option) {
       if (!formData.price_without_magsafe || !formData.price_with_magsafe) {
         alert('Please enter both MagSafe prices');
+        return;
+      }
+    } else if (formData.category === 'Phone Covers' && !formData.has_magsafe_option) {
+      if (!formData.price) {
+        alert('Please enter product price');
         return;
       }
     } else {
@@ -177,6 +184,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
         description: formData.description,
         category: formData.category,
         stock_quantity: parseInt(formData.stock_quantity),
+        has_magsafe_option: formData.has_magsafe_option,
         images,
         colors,
         models,
@@ -185,7 +193,7 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
       console.log('📤 Sending product data:', productData);
       console.log('📊 Stock quantity:', formData.stock_quantity, '→', parseInt(formData.stock_quantity));
 
-      if (formData.category === 'Phone Covers') {
+      if (formData.category === 'Phone Covers' && formData.has_magsafe_option) {
         productData.price_without_magsafe = parseFloat(formData.price_without_magsafe);
         productData.price_with_magsafe = parseFloat(formData.price_with_magsafe);
       } else {
@@ -268,8 +276,26 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
           </select>
         </div>
 
+        {/* MagSafe Option - Only for Phone Covers */}
+        {isPhoneCover && (
+          <div className="space-y-2">
+            <label className="flex items-center space-x-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                checked={formData.has_magsafe_option}
+                onChange={(e) => setFormData({...formData, has_magsafe_option: e.target.checked})}
+                className="w-5 h-5 rounded border-2 border-orange-500/30 bg-black/50 checked:bg-orange-500 checked:border-orange-500 focus:ring-2 focus:ring-orange-500 transition-all cursor-pointer"
+              />
+              <span className="text-sm font-semibold text-white uppercase tracking-wider group-hover:text-orange-400 transition-colors">
+                ⚡ Has MagSafe Option
+              </span>
+            </label>
+            <p className="text-xs text-white/50 ml-8">Enable this if the product has MagSafe variant with different pricing</p>
+          </div>
+        )}
+
         {/* Pricing */}
-        {isPhoneCover ? (
+        {isPhoneCover && formData.has_magsafe_option ? (
           <>
             <div className="space-y-2">
               <label className="text-sm font-semibold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
