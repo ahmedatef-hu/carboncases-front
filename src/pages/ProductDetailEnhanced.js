@@ -204,7 +204,7 @@ const ProductDetailEnhanced = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
+                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-all bg-gradient-to-br from-gray-900 to-black ${
                       selectedImageIndex === index
                         ? 'border-orange-500 scale-105'
                         : 'border-white/10 hover:border-orange-500/50'
@@ -257,11 +257,6 @@ const ProductDetailEnhanced = () => {
                   LE {parseFloat(product.price).toLocaleString()}
                 </div>
               )}
-              <p className="text-white/60">
-                Stock: <span className={product.stock > 0 ? 'text-green-400' : 'text-red-400'}>
-                  {product.stock > 0 ? `${product.stock} available` : 'Out of stock'}
-                </span>
-              </p>
             </div>
 
             {/* Description */}
@@ -374,7 +369,7 @@ const ProductDetailEnhanced = () => {
                 </button>
                 <span className="text-2xl font-bold text-white w-12 text-center">{quantity}</span>
                 <button
-                  onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                  onClick={() => setQuantity(quantity + 1)}
                   className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-white hover:bg-white/20 transition-all"
                 >
                   +
@@ -386,7 +381,7 @@ const ProductDetailEnhanced = () => {
             <div className="flex space-x-4">
               <button
                 onClick={handleAddToCart}
-                disabled={product.stock === 0 || addedToCart}
+                disabled={addedToCart}
                 className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white py-4 rounded-xl hover:from-red-600 hover:to-orange-500 transition-all duration-500 font-bold text-lg flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {addedToCart ? (
