@@ -221,22 +221,34 @@ const Checkout = () => {
               
               <div className="space-y-4 mb-6">
                 {cart.map(item => (
-                  <div key={`${item.id}-${item.variant || 'default'}`} className="flex justify-between text-sm">
-                    <div className="flex-1">
-                      <span className="text-gray-400">
-                        {item.name} x {item.quantity}
-                      </span>
-                      {item.variant && (
-                        <span className={`ml-2 text-xs px-2 py-0.5 rounded ${
-                          item.variant === 'with_magsafe' 
-                            ? 'bg-blue-500/20 text-blue-400' 
-                            : 'bg-orange-500/20 text-orange-400'
-                        }`}>
-                          {item.variant === 'with_magsafe' ? '⚡ With MagSafe' : 'Without MagSafe'}
+                  <div key={`${item.id}-${item.variant || 'default'}`} className="text-sm">
+                    <div className="flex justify-between mb-1">
+                      <div className="flex-1">
+                        <span className="text-gray-400">
+                          {item.name} x {item.quantity}
                         </span>
-                      )}
+                        {item.variant && (
+                          <span className={`ml-2 text-xs px-2 py-0.5 rounded ${
+                            item.variant === 'with_magsafe' 
+                              ? 'bg-blue-500/20 text-blue-400' 
+                              : 'bg-orange-500/20 text-orange-400'
+                          }`}>
+                            {item.variant === 'with_magsafe' ? '⚡ With MagSafe' : 'Without MagSafe'}
+                          </span>
+                        )}
+                      </div>
+                      <span className="font-semibold">LE {(item.price * item.quantity).toFixed(2)}</span>
                     </div>
-                    <span className="font-semibold">LE {(item.price * item.quantity).toFixed(2)}</span>
+                    {(item.selectedColor || item.selectedModel) && (
+                      <div className="ml-2 text-xs text-gray-500 space-y-0.5">
+                        {item.selectedColor && (
+                          <div>Color: <span className="text-orange-400">{item.selectedColor}</span></div>
+                        )}
+                        {item.selectedModel && (
+                          <div>Model: <span className="text-orange-400">{item.selectedModel}</span></div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
