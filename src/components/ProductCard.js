@@ -7,7 +7,6 @@ import ProductImage from './ProductImage';
 import api from '../utils/api';
 
 const ProductCard = ({ product, onAddToWishlist }) => {
-  const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [addedToWishlist, setAddedToWishlist] = useState(false);
@@ -15,11 +14,6 @@ const ProductCard = ({ product, onAddToWishlist }) => {
   // Get product images (use image_count from backend or default to 1)
   const imageCount = product.image_count || 0;
   const hasMultipleImages = imageCount > 1;
-
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    addToCart(product);
-  };
 
   const handleAddToWishlist = async (e) => {
     e.preventDefault();
