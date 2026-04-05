@@ -81,7 +81,7 @@ const DashboardHome = () => {
   ];
 
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-8 px-2 sm:px-0">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
         <div>
