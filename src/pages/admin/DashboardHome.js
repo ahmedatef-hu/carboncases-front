@@ -81,19 +81,19 @@ const DashboardHome = () => {
   ];
 
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
         <div>
-          <h1 className="font-serif text-xl sm:text-2xl lg:text-4xl font-black text-white mb-1 sm:mb-2" style={{
+          <h1 className="font-serif text-lg sm:text-xl lg:text-4xl font-black text-white mb-1" style={{
             textShadow: '0 0 40px rgba(255, 107, 53, 0.4)'
           }}>Dashboard Overview</h1>
-          <p className="text-white/70 text-xs sm:text-sm lg:text-lg">Welcome back! Here's what's happening with your store today.</p>
+          <p className="text-white/70 text-xs lg:text-lg">Welcome back! Here's what's happening with your store today.</p>
         </div>
-        <div className="flex items-center space-x-2 bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-xl border border-green-500/30 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 shadow-sm self-start sm:self-auto" style={{
+        <div className="flex items-center space-x-1.5 sm:space-x-2 bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-xl border border-green-500/30 rounded-lg px-2 py-1 sm:py-1.5 shadow-sm self-start sm:self-auto" style={{
           boxShadow: '0 0 20px rgba(34, 197, 94, 0.2)'
         }}>
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{
+          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse" style={{
             boxShadow: '0 0 10px rgba(34, 197, 94, 0.6)'
           }}></div>
           <span className="text-xs font-medium text-green-400">Live Data</span>
@@ -101,7 +101,7 @@ const DashboardHome = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3 lg:gap-6">
         {statCards.map((stat, index) => {
           const Icon = stat.icon;
           const ChangeIcon = stat.changeType === 'up' ? FiArrowUp : FiArrowDown;
@@ -162,19 +162,19 @@ const DashboardHome = () => {
               </div>
             ) : (
               stats?.topProducts?.map((product, index) => (
-                <div key={product.id} className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 bg-gradient-to-r from-gray-800/50 to-black/50 backdrop-blur-sm rounded-lg lg:rounded-xl hover:from-gray-800/70 hover:to-black/70 transition-all duration-300 border border-white/5 group">
-                  <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 lg:w-12 lg:h-12 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-lg lg:rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm lg:text-lg group-hover:scale-110 transition-transform" style={{
+                <div key={product.id} className="flex items-center gap-1.5 sm:gap-2 lg:gap-4 p-2 sm:p-3 lg:p-4 bg-gradient-to-r from-gray-800/50 to-black/50 backdrop-blur-sm rounded-lg lg:rounded-xl hover:from-gray-800/70 hover:to-black/70 transition-all duration-300 border border-white/5 group">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-lg lg:rounded-xl flex items-center justify-center font-bold text-xs lg:text-lg group-hover:scale-110 transition-transform" style={{
                     boxShadow: '0 8px 20px rgba(255, 107, 53, 0.3)'
                   }}>
                     #{index + 1}
                   </div>
-                  <img src={product.image_url} alt={product.name} className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 object-cover rounded-lg lg:rounded-xl border border-orange-500/20 group-hover:border-orange-500/40 transition-colors" />
-                  <div className="flex-grow min-w-0">
-                    <h3 className="font-bold text-white mb-0.5 sm:mb-1 text-xs sm:text-sm lg:text-base truncate">{product.name}</h3>
-                    <p className="text-xs text-white/60 font-medium">{product.total_sold} units sold</p>
+                  <img src={product.image_url} alt={product.name} className="w-9 h-9 sm:w-12 sm:h-12 lg:w-16 lg:h-16 object-cover rounded-lg lg:rounded-xl border border-orange-500/20 group-hover:border-orange-500/40 transition-colors flex-shrink-0" />
+                  <div className="flex-grow min-w-0 pr-1">
+                    <h3 className="font-bold text-white mb-0.5 text-xs sm:text-sm lg:text-base truncate">{product.name}</h3>
+                    <p className="text-xs text-white/60 font-medium">{product.total_sold} sold</p>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <p className="font-black text-xs sm:text-sm lg:text-xl text-white" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(product.revenue).toLocaleString()}</p>
+                    <p className="font-black text-xs sm:text-sm lg:text-xl text-white whitespace-nowrap" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(product.revenue).toLocaleString()}</p>
                     <p className="text-xs text-white/50 hidden sm:block">Revenue</p>
                   </div>
                 </div>
