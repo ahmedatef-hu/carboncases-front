@@ -44,7 +44,7 @@ const OrdersManagement = () => {
   const fetchOrderDetails = async (orderId) => {
     setLoadingDetails(true);
     try {
-      const response = await api.get(`/orders/${orderId}`);
+      const response = await api.get(`/admin/orders/${orderId}`);
       setOrderDetails(response.data);
     } catch (error) {
       console.error('Error fetching order details:', error);
