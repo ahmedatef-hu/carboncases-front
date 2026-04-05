@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
@@ -22,6 +22,17 @@ import AuthCallback from './pages/AuthCallback';
 import CompleteProfile from './pages/CompleteProfile';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
+
+// Scroll to top component
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 // Protected Admin Route Component
 const ProtectedAdminRoute = ({ children }) => {
@@ -52,6 +63,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col bg-primary">
+      <ScrollToTop />
       {!isAdminRoute && <Navbar />}
       <main className="flex-grow">
         <Routes>
