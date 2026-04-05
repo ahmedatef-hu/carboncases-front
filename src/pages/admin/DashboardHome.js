@@ -230,7 +230,7 @@ const DashboardHome = () => {
                     <p className="text-xs text-white/50 truncate">{order.user_email}</p>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="font-black text-white text-sm" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_price).toLocaleString()}</span>
+                    <span className="font-black text-white text-sm" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_amount || order.total_price || 0).toLocaleString()}</span>
                     <span className="text-xs text-white/60 font-medium">
                       {new Date(order.created_at).toLocaleDateString('en-US', {
                         month: 'short',
@@ -277,7 +277,7 @@ const DashboardHome = () => {
                       </div>
                     </td>
                     <td className="py-3 lg:py-4 px-2 lg:px-4">
-                      <span className="font-black text-white text-sm lg:text-base" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_price).toLocaleString()}</span>
+                      <span className="font-black text-white text-sm lg:text-base" style={{textShadow: '0 0 15px rgba(255, 107, 53, 0.3)'}}>LE {parseFloat(order.total_amount || order.total_price || 0).toLocaleString()}</span>
                     </td>
                     <td className="py-3 lg:py-4 px-2 lg:px-4">
                       <span className={`px-2 py-1 lg:px-4 lg:py-2 rounded-full text-xs font-bold uppercase tracking-wide ${
