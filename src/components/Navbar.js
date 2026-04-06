@@ -32,19 +32,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Top Banner with Glow Effect */}
-      <div className="relative bg-black text-white text-center py-2 text-sm font-medium tracking-wide overflow-hidden">
-        {/* Animated Glow Line */}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent animate-scan-horizontal"></div>
-        
-        <div className="animate-marquee whitespace-nowrap relative z-10">
-          BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUY 2 GET 1 FREE | FREE SHIPPING
-        </div>
-        
-        {/* Bottom Glow Line */}
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500 to-transparent" style={{animationDelay: '4s'}}></div>
-      </div>
-
       {/* Main Navigation with Advanced Effects */}
       <nav className="relative bg-black text-white sticky top-0 z-50">
         {/* Background Effects */}
