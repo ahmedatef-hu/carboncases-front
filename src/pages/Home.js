@@ -156,7 +156,7 @@ const Home = () => {
                   <span className="block text-5xl md:text-7xl lg:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-500 to-orange-600 leading-none -mt-2" style={{
                     textShadow: '0 0 40px rgba(255, 107, 53, 0.4)'
                   }}>
-                    CASES
+                    CASE
                   </span>
                 </h1>
                 
