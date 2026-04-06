@@ -278,19 +278,38 @@ const ProductFormStyled = ({ onSuccess, onCancel, existingProduct = null }) => {
 
         {/* MagSafe Option - Only for Phone Covers */}
         {isPhoneCover && (
-          <div className="space-y-2">
-            <label className="flex items-center space-x-3 cursor-pointer group">
-              <input
-                type="checkbox"
-                checked={formData.has_magsafe_option}
-                onChange={(e) => setFormData({...formData, has_magsafe_option: e.target.checked})}
-                className="w-5 h-5 rounded border-2 border-orange-500/30 bg-black/50 checked:bg-orange-500 checked:border-orange-500 focus:ring-2 focus:ring-orange-500 transition-all cursor-pointer"
-              />
-              <span className="text-sm font-semibold text-white uppercase tracking-wider group-hover:text-orange-400 transition-colors">
-                ⚡ Has MagSafe Option
-              </span>
+          <div className="bg-gradient-to-br from-orange-500/10 to-red-600/10 backdrop-blur-md border-2 border-orange-500/30 rounded-xl p-4 space-y-3 hover:border-orange-500/50 transition-all">
+            <label className="flex items-start space-x-4 cursor-pointer group">
+              <div className="relative flex-shrink-0 mt-1">
+                <input
+                  type="checkbox"
+                  checked={formData.has_magsafe_option}
+                  onChange={(e) => setFormData({...formData, has_magsafe_option: e.target.checked})}
+                  className="w-6 h-6 rounded-lg border-2 border-orange-500/50 bg-black/50 checked:bg-gradient-to-br checked:from-orange-500 checked:to-red-600 checked:border-orange-500 focus:ring-2 focus:ring-orange-500 transition-all cursor-pointer appearance-none"
+                  style={{
+                    backgroundImage: formData.has_magsafe_option ? 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 16 16\' fill=\'white\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z\'/%3E%3C/svg%3E")' : 'none',
+                    backgroundSize: '100% 100%',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center space-x-2 mb-1">
+                  <span className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">
+                    ⚡ MagSafe Option
+                  </span>
+                  {formData.has_magsafe_option && (
+                    <span className="px-2 py-0.5 bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-bold rounded-full uppercase tracking-wide">
+                      Active
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  Enable this if the product has MagSafe variant with different pricing options
+                </p>
+              </div>
             </label>
-            <p className="text-xs text-white/50 ml-8">Enable this if the product has MagSafe variant with different pricing</p>
           </div>
         )}
 
