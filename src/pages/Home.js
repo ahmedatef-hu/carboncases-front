@@ -19,7 +19,7 @@ const Home = () => {
       title: 'IMPACT SERIES 1.0',
       rating: 5,
       description: 'A refined take on our signature design, delivering a premium look and feel through a performance build, metal accents, and a smooth touch profile.',
-      image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
+      image: '/IMPACT SERIES 1.0.JPG.jpeg',
       category: 'phone-covers',
       color: 'red'
     },
@@ -29,7 +29,7 @@ const Home = () => {
       title: 'IMPACT SERIES 2.0',
       rating: 5,
       description: 'Enhanced protection with advanced carbon fiber weaving technology. Premium materials meet cutting-edge design for ultimate device security.',
-      image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
+      image: '/IMPACT SERIES 2.0.PNG',
       category: 'phone-covers',
       color: 'blue'
     },
@@ -39,7 +39,7 @@ const Home = () => {
       title: 'SKELETON SERIES',
       rating: 5,
       description: 'Minimalist design with maximum protection. Ultra-lightweight carbon fiber construction that showcases your device while keeping it safe.',
-      image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
+      image: '/SKELETON SERIES.JPG.jpeg',
       category: 'phone-covers',
       color: 'teal'
     },
@@ -49,7 +49,7 @@ const Home = () => {
       title: 'ARAMID SERIES',
       rating: 5,
       description: 'Military-grade aramid fiber construction. Bulletproof material technology adapted for everyday device protection with premium aesthetics.',
-      image: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734',
+      image: '/ARAMID SERIES.JPG.jpeg',
       category: 'phone-covers',
       color: 'gray'
     }
@@ -298,7 +298,7 @@ const Home = () => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
                   <div className="relative mb-6 transform transition-all duration-700">
                     <img 
-                      src="https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734" 
+                      src="/Forged Carbon Fiber Max 2.0.jpg.jpeg" 
                       alt="Phone Cases" 
                       className="category-image-glow w-32 h-40 object-cover rounded-xl shadow-2xl"
                     />
@@ -306,10 +306,10 @@ const Home = () => {
                   
                   <div className="space-y-3">
                     <h3 className="category-text-glow font-bold text-xl text-white uppercase tracking-wide">
-                      PHONE CASES
+                      PHONE SERIES
                     </h3>
                     <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                      Premium Protection
+                      Choose Your Perfect Match
                     </p>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                   </div>
@@ -418,7 +418,7 @@ const Home = () => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
                   <div className="relative mb-6 transform transition-all duration-700">
                     <img 
-                      src="https://apexcarbon.ca/cdn/shop/files/4_976b0fbd-9dd5-47e9-bc22-af1105475223.jpg?v=1765354755" 
+                      src="/Car Accessories .jpeg" 
                       alt="Car Accessories" 
                       className="category-image-glow w-32 h-40 object-cover rounded-xl shadow-2xl"
                     />
@@ -468,10 +468,10 @@ const Home = () => {
             >
               {/* Mobile category cards */}
               {[
-                { name: 'PHONE CASES', desc: 'Premium Protection', img: 'https://apexcarbon.ca/cdn/shop/files/PHONE_CASE_4e4e503f-be04-4c3e-8c8a-8c559d521b9c.jpg?v=1765354734', link: '/products?category=phone-covers' },
+                { name: 'PHONE SERIES', desc: 'Choose Your Perfect Match', img: '/Forged Carbon Fiber Max 2.0.jpg.jpeg', link: '/products?category=phone-covers' },
                 { name: 'WALLETS', desc: 'Slim & Secure', img: 'https://www.simplycarbonfiber.com/cdn/shop/products/real-carbon-fiber-cash-card-slim-wallet-wallets-money-clips-carbo-neek-855759.jpg?v=1639005598&width=1080', link: '/products?category=wallets' },
                 { name: 'AIRPODS CASES', desc: 'Wireless Ready', img: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707', link: '/products?category=airpods-covers' },
-                { name: 'CAR ACCESSORIES', desc: 'Automotive Style', img: 'https://apexcarbon.ca/cdn/shop/files/4_976b0fbd-9dd5-47e9-bc22-af1105475223.jpg?v=1765354755', link: '/products?category=car-accessories' }
+                { name: 'CAR ACCESSORIES', desc: 'Automotive Style', img: '/Car Accessories .jpeg', link: '/products?category=car-accessories' }
               ].map((category, index) => (
                 <Link key={index} to={category.link} className="group flex-shrink-0">
                   <div className="category-card-creative rounded-2xl w-72 h-80 relative">
@@ -739,16 +739,16 @@ const Home = () => {
                     alt={series.name}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-black/70 group-hover:bg-black/50 transition-colors duration-700"></div>
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-700"></div>
                 </div>
 
                 {/* Layer 2: Enhanced Gradient Overlay */}
                 <div className={`absolute inset-0 z-10 transition-opacity duration-700 ${
-                  index === 0 ? 'bg-gradient-to-br from-black/90 via-gray-900/85 to-orange-900/70' :
-                  index === 1 ? 'bg-gradient-to-br from-black/90 via-gray-900/85 to-red-900/70' :
-                  index === 2 ? 'bg-gradient-to-br from-black/90 via-gray-800/85 to-orange-800/70' :
-                  'bg-gradient-to-br from-black/90 via-gray-800/85 to-gray-900/70'
-                } group-hover:opacity-90`}></div>
+                  index === 0 ? 'bg-gradient-to-br from-black/60 via-gray-900/50 to-orange-900/40' :
+                  index === 1 ? 'bg-gradient-to-br from-black/60 via-gray-900/50 to-red-900/40' :
+                  index === 2 ? 'bg-gradient-to-br from-black/60 via-gray-800/50 to-orange-800/40' :
+                  'bg-gradient-to-br from-black/60 via-gray-800/50 to-gray-900/40'
+                } group-hover:opacity-70`}></div>
 
                 {/* Layer 3: Collapsed State - Vertical Text (Desktop only) */}
                 <div className={`absolute inset-0 z-20 hidden lg:flex items-center justify-center transition-opacity duration-500 ${

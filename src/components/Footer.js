@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiInstagram, FiTwitter, FiFacebook, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { FiInstagram, FiMail, FiPhone } from 'react-icons/fi';
+import { FaTiktok, FaFacebook } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -49,29 +50,36 @@ const Footer = () => {
             
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
-              <div className="flex items-center space-x-3 text-gray-400 hover:text-orange-400 transition-colors duration-300 group">
+              <a 
+                href="mailto:carboncase.eg@gmail.com"
+                className="flex items-center space-x-3 text-gray-400 hover:text-orange-400 transition-colors duration-300 group"
+              >
                 <FiMail className="group-hover:scale-110 transition-transform duration-300" size={18} />
-                <span>info@carboncases.com</span>
-              </div>
-              <div className="flex items-center space-x-3 text-gray-400 hover:text-orange-400 transition-colors duration-300 group">
+                <span>carboncase.eg@gmail.com</span>
+              </a>
+              <a 
+                href="https://wa.me/201094449152"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-3 text-gray-400 hover:text-orange-400 transition-colors duration-300 group"
+              >
                 <FiPhone className="group-hover:scale-110 transition-transform duration-300" size={18} />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-3 text-gray-400 hover:text-orange-400 transition-colors duration-300 group">
-                <FiMapPin className="group-hover:scale-110 transition-transform duration-300" size={18} />
-                <span>New York, NY 10001</span>
-              </div>
+                <span>01094449152 (WhatsApp)</span>
+              </a>
             </div>
             
             {/* Social Media */}
             <div className="flex space-x-4">
               {[
-                { icon: FiInstagram, label: 'Instagram' },
-                { icon: FiTwitter, label: 'Twitter' },
-                { icon: FiFacebook, label: 'Facebook' }
+                { icon: FiInstagram, label: 'Instagram', url: 'https://www.instagram.com/carboncase_eg?igsh=emJ3dDQxbWdvc200&utm_source=qr' },
+                { icon: FaTiktok, label: 'TikTok', url: 'https://www.tiktok.com/@carboncase_eg?_r=1&_t=ZS-95NRwhWM8nd' },
+                { icon: FaFacebook, label: 'Facebook', url: 'https://www.facebook.com/share/1DaSi9uNv1/?mibextid=wwXIfr' }
               ].map((social, index) => (
-                <button
+                <a
                   key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group relative bg-gradient-to-br from-gray-800 to-gray-900 text-gray-400 hover:text-white p-3 rounded-xl transition-all duration-500 hover:scale-110 border border-gray-800 hover:border-orange-500/50"
                   aria-label={social.label}
                   style={{
@@ -80,7 +88,7 @@ const Footer = () => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 to-red-500/0 group-hover:from-orange-500/20 group-hover:to-red-500/20 rounded-xl transition-all duration-500"></div>
                   <social.icon size={20} className="relative z-10" />
-                </button>
+                </a>
               ))}
             </div>
           </div>
