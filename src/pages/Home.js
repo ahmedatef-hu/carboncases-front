@@ -438,85 +438,58 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Mobile/Tablet Carousel */}
-          <div className="lg:hidden relative">
-            {/* Navigation Arrows */}
-            <button 
-              onClick={scrollLeft}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
-              style={{
-                boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)'
-              }}
-            >
-              <FiChevronLeft size={20} />
-            </button>
-            
-            <button 
-              onClick={scrollRight}
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
-              style={{
-                boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)'
-              }}
-            >
-              <FiChevronRight size={20} />
-            </button>
-
-            {/* Scrollable Container */}
-            <div 
-              ref={carouselRef}
-              className="flex overflow-x-auto scrollbar-hide gap-6 px-12 py-4 scroll-smooth"
-            >
-              {/* Mobile category cards */}
-              {[
-                { name: 'PHONE SERIES', desc: 'Choose Your Perfect Match', img: '/Forged Carbon Fiber Max 2.0.jpg.jpeg', link: '/products?category=phone-covers' },
-                { name: 'WALLETS', desc: 'Slim & Secure', img: 'https://www.simplycarbonfiber.com/cdn/shop/products/real-carbon-fiber-cash-card-slim-wallet-wallets-money-clips-carbo-neek-855759.jpg?v=1639005598&width=1080', link: '/products?category=wallets' },
-                { name: 'AIRPODS CASES', desc: 'Wireless Ready', img: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707', link: '/products?category=airpods-covers' },
-                { name: 'CAR ACCESSORIES', desc: 'Automotive Style', img: '/Car Accessories .jpeg', link: '/products?category=car-accessories' }
-              ].map((category, index) => (
-                <Link key={index} to={category.link} className="group flex-shrink-0">
-                  <div className="category-card-creative rounded-2xl w-72 h-80 relative">
-                    {/* Floating Particles */}
-                    <div className="category-particles">
-                      {[...Array(6)].map((_, i) => (
-                        <div
-                          key={i}
-                          className="category-particle"
-                          style={{
-                            left: `${20 + i * 15}%`,
-                            top: `${30 + (i % 2) * 20}%`,
-                            animationDelay: `${i * 0.5}s`
-                          }}
-                        />
-                      ))}
+          {/* Mobile/Tablet Grid */}
+          <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-6 px-4">
+            {/* Mobile category cards */}
+            {[
+              { name: 'PHONE SERIES', desc: 'Choose Your Perfect Match', img: '/Forged Carbon Fiber Max 2.0.jpg.jpeg', link: '/products?category=phone-covers' },
+              { name: 'WALLETS', desc: 'Slim & Secure', img: 'https://www.simplycarbonfiber.com/cdn/shop/products/real-carbon-fiber-cash-card-slim-wallet-wallets-money-clips-carbo-neek-855759.jpg?v=1639005598&width=1080', link: '/products?category=wallets' },
+              { name: 'AIRPODS CASES', desc: 'Wireless Ready', img: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707', link: '/products?category=airpods-covers' },
+              { name: 'CAR ACCESSORIES', desc: 'Automotive Style', img: '/Car Accessories .jpeg', link: '/products?category=car-accessories' }
+            ].map((category, index) => (
+              <Link key={index} to={category.link} className="group">
+                <div className="category-card-creative rounded-2xl w-full h-80 relative">
+                  {/* Floating Particles */}
+                  <div className="category-particles">
+                    {[...Array(6)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="category-particle"
+                        style={{
+                          left: `${20 + i * 15}%`,
+                          top: `${30 + (i % 2) * 20}%`,
+                          animationDelay: `${i * 0.5}s`
+                        }}
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Border Animation */}
+                  <div className="category-border-animation rounded-2xl"></div>
+                  
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
+                    <div className="relative mb-6 transform transition-all duration-700">
+                      <img 
+                        src={category.img}
+                        alt={category.name}
+                        className="category-image-glow w-32 h-40 object-cover rounded-xl shadow-2xl"
+                      />
                     </div>
                     
-                    {/* Border Animation */}
-                    <div className="category-border-animation rounded-2xl"></div>
-                    
-                    {/* Content */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
-                      <div className="relative mb-6 transform transition-all duration-700">
-                        <img 
-                          src={category.img}
-                          alt={category.name}
-                          className="category-image-glow w-32 h-40 object-cover rounded-xl shadow-2xl"
-                        />
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <h3 className="category-text-glow font-bold text-lg text-white uppercase tracking-wide">
-                          {category.name}
-                        </h3>
-                        <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                          {category.desc}
-                        </p>
-                        <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
-                      </div>
+                    <div className="space-y-3">
+                      <h3 className="category-text-glow font-bold text-lg text-white uppercase tracking-wide">
+                        {category.name}
+                      </h3>
+                      <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
+                        {category.desc}
+                      </p>
+                      <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
