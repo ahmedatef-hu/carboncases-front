@@ -8,7 +8,6 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedSeries, setExpandedSeries] = useState(1);
-  const carouselRef = useRef(null);
   const featuredCarouselRef = useRef(null);
 
   // Phone series data
@@ -54,17 +53,6 @@ const Home = () => {
       color: 'gray'
     }
   ];
-
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -300, behavior: 'smooth' });
-    }
-  };
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  };
 
   const scrollFeaturedLeft = () => {
     if (featuredCarouselRef.current) {
