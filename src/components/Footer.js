@@ -151,12 +151,12 @@ const Footer = () => {
             <div className="flex items-center space-x-4">
               <span className="text-gray-500 text-sm">We Accept:</span>
               <div className="flex space-x-3">
-                {['VISA', 'MC', 'AMEX'].map((card, index) => (
+                {['VISA', 'Instapay', 'Vodafone Cash'].map((method, index) => (
                   <div 
                     key={index}
                     className="bg-gradient-to-br from-gray-800 to-gray-900 px-3 py-1 rounded text-xs font-bold text-gray-400 border border-gray-800"
                   >
-                    {card}
+                    {method}
                   </div>
                 ))}
               </div>
