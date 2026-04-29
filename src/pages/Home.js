@@ -308,9 +308,6 @@ const Home = () => {
                     <h3 className="category-text-glow font-bold text-xl text-white uppercase tracking-wide">
                       PHONE SERIES
                     </h3>
-                    <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                      Choose Your Perfect Match
-                    </p>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                   </div>
                 </div>
@@ -338,7 +335,7 @@ const Home = () => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
                   <div className="relative mb-6 transform transition-all duration-700">
                     <img 
-                      src="https://www.simplycarbonfiber.com/cdn/shop/products/real-carbon-fiber-cash-card-slim-wallet-wallets-money-clips-carbo-neek-855759.jpg?v=1639005598&width=1080" 
+                      src="/Wallet.JPG.jpeg" 
                       alt="Wallets" 
                       className="category-image-glow w-32 h-40 object-cover rounded-xl shadow-2xl"
                     />
@@ -348,9 +345,6 @@ const Home = () => {
                     <h3 className="category-text-glow font-bold text-xl text-white uppercase tracking-wide">
                       WALLETS
                     </h3>
-                    <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                      Slim & Secure
-                    </p>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                   </div>
                 </div>
@@ -388,9 +382,6 @@ const Home = () => {
                     <h3 className="category-text-glow font-bold text-xl text-white uppercase tracking-wide">
                       AIRPODS CASES
                     </h3>
-                    <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                      Wireless Ready
-                    </p>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                   </div>
                 </div>
@@ -428,9 +419,6 @@ const Home = () => {
                     <h3 className="category-text-glow font-bold text-xl text-white uppercase tracking-wide">
                       WATCH CASES
                     </h3>
-                    <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                      Premium Style
-                    </p>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                   </div>
                 </div>
@@ -468,9 +456,6 @@ const Home = () => {
                     <h3 className="category-text-glow font-bold text-xl text-white uppercase tracking-wide">
                       CAR ACCESSORIES
                     </h3>
-                    <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                      Automotive Style
-                    </p>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                   </div>
                 </div>
@@ -482,11 +467,11 @@ const Home = () => {
           <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-6 px-4">
             {/* Mobile category cards */}
             {[
-              { name: 'PHONE SERIES', desc: 'Choose Your Perfect Match', img: '/Forged Carbon Fiber Max 2.0.jpg.jpeg', link: '/products?category=phone-covers' },
-              { name: 'WALLETS', desc: 'Slim & Secure', img: 'https://www.simplycarbonfiber.com/cdn/shop/products/real-carbon-fiber-cash-card-slim-wallet-wallets-money-clips-carbo-neek-855759.jpg?v=1639005598&width=1080', link: '/products?category=wallets' },
-              { name: 'AIRPODS CASES', desc: 'Wireless Ready', img: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707', link: '/products?category=airpods-covers' },
-              { name: 'WATCH CASES', desc: 'Premium Style', img: '/Watch Case.jpeg', link: '/products?category=watch-cases' },
-              { name: 'CAR ACCESSORIES', desc: 'Automotive Style', img: '/Car Accessories .jpeg', link: '/products?category=car-accessories' }
+              { name: 'PHONE SERIES', img: '/Forged Carbon Fiber Max 2.0.jpg.jpeg', link: '/products?category=phone-covers' },
+              { name: 'WALLETS', img: '/Wallet.JPG.jpeg', link: '/products?category=wallets' },
+              { name: 'AIRPODS CASES', img: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707', link: '/products?category=airpods-covers' },
+              { name: 'WATCH CASES', img: '/Watch Case.jpeg', link: '/products?category=watch-cases' },
+              { name: 'CAR ACCESSORIES', img: '/Car Accessories .jpeg', link: '/products?category=car-accessories' }
             ].map((category, index) => (
               <Link key={index} to={category.link} className="group">
                 <div className="category-card-creative rounded-2xl w-full h-80 relative">
@@ -522,9 +507,6 @@ const Home = () => {
                       <h3 className="category-text-glow font-bold text-lg text-white uppercase tracking-wide">
                         {category.name}
                       </h3>
-                      <p className="text-gray-400 transition-colors duration-500 text-sm group-hover:text-orange-200">
-                        {category.desc}
-                      </p>
                       <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
                     </div>
                   </div>

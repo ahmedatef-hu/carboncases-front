@@ -260,7 +260,7 @@ const ProductDetailEnhanced = () => {
             </div>
 
             {/* Description */}
-            <p className="text-white/70 leading-relaxed">{product.description}</p>
+            <p className="text-white/70 leading-relaxed whitespace-pre-line">{product.description}</p>
 
             {/* Color Selection */}
             {product.colors && product.colors.length > 0 && (
