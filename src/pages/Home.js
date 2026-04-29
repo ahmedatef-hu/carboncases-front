@@ -272,7 +272,7 @@ const Home = () => {
           </div>
 
           {/* Desktop Grid */}
-          <div className="hidden lg:grid grid-cols-5 gap-8">
+          <div className="hidden lg:grid grid-cols-4 gap-8">
             {/* Phone Cases */}
             <Link to="/products?category=phone-covers" className="group">
               <div className="category-card-creative rounded-2xl w-full h-80 relative">
@@ -335,7 +335,7 @@ const Home = () => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
                   <div className="relative mb-6 transform transition-all duration-700">
                     <img 
-                      src="/Wallet.JPG.jpeg" 
+                      src="/Wallets.JPG.jpeg" 
                       alt="Wallets" 
                       className="category-image-glow w-32 h-40 object-cover rounded-xl shadow-2xl"
                     />
@@ -388,43 +388,6 @@ const Home = () => {
               </div>
             </Link>
 
-            {/* Watch Cases */}
-            <Link to="/products?category=watch-cases" className="group">
-              <div className="category-card-creative rounded-2xl w-full h-80 relative">
-                <div className="category-particles">
-                  {[...Array(6)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="category-particle"
-                      style={{
-                        left: `${20 + i * 15}%`,
-                        top: `${30 + (i % 2) * 20}%`,
-                        animationDelay: `${i * 0.5}s`
-                      }}
-                    />
-                  ))}
-                </div>
-                <div className="category-border-animation rounded-2xl"></div>
-                
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
-                  <div className="relative mb-6 transform transition-all duration-700">
-                    <img 
-                      src="/Watch Case.jpeg" 
-                      alt="Watch Cases" 
-                      className="category-image-glow w-32 h-40 object-cover rounded-xl shadow-2xl"
-                    />
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <h3 className="category-text-glow font-bold text-xl text-white uppercase tracking-wide">
-                      WATCH CASES
-                    </h3>
-                    <div className="w-16 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-
             {/* Car Accessories */}
             <Link to="/products?category=car-accessories" className="group">
               <div className="category-card-creative rounded-2xl w-full h-80 relative">
@@ -468,9 +431,8 @@ const Home = () => {
             {/* Mobile category cards */}
             {[
               { name: 'PHONE SERIES', img: '/Forged Carbon Fiber Max 2.0.jpg.jpeg', link: '/products?category=phone-covers' },
-              { name: 'WALLETS', img: '/Wallet.JPG.jpeg', link: '/products?category=wallets' },
+              { name: 'WALLETS', img: '/Wallets.JPG.jpeg', link: '/products?category=wallets' },
               { name: 'AIRPODS CASES', img: 'https://apexcarbon.ca/cdn/shop/files/Product_photos_bloc_section_store_846620da-5359-40b5-9acc-2d11e0044418.jpg?v=1765416707', link: '/products?category=airpods-covers' },
-              { name: 'WATCH CASES', img: '/Watch Case.jpeg', link: '/products?category=watch-cases' },
               { name: 'CAR ACCESSORIES', img: '/Car Accessories .jpeg', link: '/products?category=car-accessories' }
             ].map((category, index) => (
               <Link key={index} to={category.link} className="group">

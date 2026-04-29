@@ -405,14 +405,10 @@ const ProductDetailEnhanced = () => {
             </div>
 
             {/* Features */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 border-t border-white/10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-white/10">
               <div className="flex items-center space-x-3">
                 <FiAward className="text-orange-400 flex-shrink-0" size={24} />
                 <span className="text-white/70 text-sm">Real Carbon Fiber</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <FiTruck className="text-orange-400 flex-shrink-0" size={24} />
-                <span className="text-white/70 text-sm">Free Shipping</span>
               </div>
               <div className="flex items-center space-x-3">
                 <FiShield className="text-orange-400 flex-shrink-0" size={24} />
