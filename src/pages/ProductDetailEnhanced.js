@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FiShoppingCart, FiHeart, FiArrowLeft, FiCheck, FiShield, FiZap, FiStar, FiChevronLeft, FiChevronRight, FiAward, FiTruck } from 'react-icons/fi';
+import { FiShoppingCart, FiHeart, FiArrowLeft, FiCheck, FiShield, FiZap, FiStar, FiChevronLeft, FiChevronRight, FiAward } from 'react-icons/fi';
 import api from '../utils/api';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
